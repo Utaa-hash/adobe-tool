@@ -78,7 +78,7 @@
                     <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
                         Adobe Stock <span class="gradient-text font-extrabold">Contributor Tool</span>
                     </h1>
-                    <p class="text-xs text-slate-400">Auto Upscaler, Metadata Kawaii & CSV Exporter v2</p>
+                    <p class="text-xs text-slate-400">Auto Upscaler, Metadata Kawaii & CSV Exporter v4</p>
                 </div>
             </div>
 
@@ -89,7 +89,7 @@
                     <span id="stat-total" class="text-cyan-400 font-bold">0</span>
                 </div>
                 <div class="bg-adobe-card px-3 py-1.5 rounded-lg border border-adobe-border flex items-center space-x-2">
-                    <span class="text-slate-400">Siap Upload (>=4MP):</span>
+                    <span class="text-slate-400">Siap Upload:</span>
                     <span id="stat-ready" class="text-emerald-400 font-bold">0</span>
                 </div>
             </div>
@@ -109,8 +109,8 @@
                     <span>2. Judul & Kata Kunci</span>
                 </button>
                 <button onclick="switchTab('tab-checklist')" id="btn-tab-checklist" class="tab-btn px-4 py-2.5 text-sm font-semibold rounded-lg flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-adobe-card transition-all whitespace-nowrap">
-                    <i class="fa-solid fa-list-check"></i>
-                    <span>3. Panduan Upload</span>
+                    <i class="fa-solid fa-key"></i>
+                    <span>3. Pengaturan API Key</span>
                 </button>
             </nav>
         </div>
@@ -122,9 +122,8 @@
         <!-- Toast Notification Container -->
         <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
-        <!-- TAB 1: UPSCALER & RESOLUTION CHECKER -->
+        <!-- TAB 1: UPSCALER -->
         <section id="tab-upscaler" class="tab-content block space-y-6">
-            <!-- Drag and Drop Upload Area -->
             <div id="dropzone" class="border-2 border-dashed border-adobe-border hover:border-cyan-500/50 rounded-2xl bg-adobe-panel p-8 text-center transition-all cursor-pointer relative overflow-hidden group">
                 <input type="file" id="file-input" multiple accept="image/jpeg, image/png, image/webp" class="hidden" onchange="handleFileSelect(event)">
                 <div class="flex flex-col items-center justify-center space-y-3 pointer-events-none">
@@ -133,113 +132,83 @@
                     </div>
                     <div>
                         <p class="text-base font-semibold text-white">Tarik & Lepas Gambar di Sini, atau <span class="text-cyan-400 underline">Pilih File</span></p>
-                        <p class="text-xs text-slate-400 mt-1">Sangat cocok untuk gambar hasil AI (Bing, Canva, Midjourney)</p>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-slate-400 bg-adobe-card px-3 py-1.5 rounded-full border border-adobe-border">
-                        <i class="fa-solid fa-circle-info text-cyan-400"></i>
-                        <span>Sistem otomatis menaikkan ukuran ke standar Adobe (Min. 4 Megapixel)</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Global Action Bar -->
             <div id="action-bar" class="hidden bg-adobe-panel border border-adobe-border rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center space-x-3">
-                    <span class="text-sm font-medium text-slate-300">Aksi Masal:</span>
-                    <button onclick="upscaleAllImages()" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-900 font-bold text-xs rounded-lg shadow-lg shadow-cyan-500/20 flex items-center space-x-2 transition-all">
-                        <i class="fa-solid fa-bolt"></i>
-                        <span>Auto-Upscale Semua</span>
+                    <button onclick="upscaleAllImages()" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-900 font-bold text-xs rounded-lg shadow-lg flex items-center space-x-2 transition-all">
+                        <i class="fa-solid fa-bolt"></i><span>Auto-Upscale Semua</span>
                     </button>
                     <button onclick="clearAllImages()" class="px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold rounded-lg border border-rose-500/30 transition-all">
-                        <i class="fa-solid fa-trash-can mr-1"></i> Hapus Semua
+                        <i class="fa-solid fa-trash-can"></i> Hapus
                     </button>
                 </div>
             </div>
 
-            <!-- Image Grid List -->
-            <div id="image-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Image Cards rendered dynamically here -->
-            </div>
+            <div id="image-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
-            <!-- Empty State -->
             <div id="empty-state" class="text-center py-16 border border-adobe-border/50 rounded-2xl bg-adobe-panel/30">
                 <i class="fa-regular fa-images text-4xl text-slate-600 mb-3"></i>
                 <h3 class="text-slate-300 font-semibold text-base">Belum Ada Gambar</h3>
-                <p class="text-slate-500 text-xs mt-1">Unggah gambar karakter lucu Anda untuk dibesarkan resolusinya.</p>
             </div>
         </section>
 
-        <!-- TAB 2: METADATA & CSV GENERATOR -->
+        <!-- TAB 2: METADATA -->
         <section id="tab-metadata" class="tab-content hidden space-y-6">
             <div class="bg-adobe-panel border border-adobe-border rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                     <h2 class="text-base font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-tags text-cyan-400"></i> Pengisian Metadata & SEO
                     </h2>
-                    <p class="text-xs text-slate-400 mt-0.5">Isi judul dan kata kunci agar gambar Anda cepat laku di pencarian Adobe Stock.</p>
                 </div>
-                <button onclick="exportToCSV()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm rounded-lg shadow-lg shadow-emerald-500/20 flex items-center space-x-2 transition-all w-full sm:w-auto justify-center">
-                    <i class="fa-solid fa-download"></i>
-                    <span>Download File CSV</span>
+                <button onclick="exportToCSV()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm rounded-lg shadow-lg flex items-center space-x-2 transition-all w-full sm:w-auto justify-center">
+                    <i class="fa-solid fa-download"></i><span>Download File CSV</span>
                 </button>
             </div>
-
-            <!-- Metadata Cards Container -->
-            <div id="metadata-list" class="space-y-6">
-                <!-- Metadata Form Cards Rendered via JS -->
-            </div>
-
-            <!-- Empty Metadata State -->
+            <div id="metadata-list" class="space-y-6"></div>
             <div id="empty-metadata-state" class="text-center py-16 border border-adobe-border/50 rounded-2xl bg-adobe-panel/30">
                 <i class="fa-solid fa-tags text-4xl text-slate-600 mb-3"></i>
                 <h3 class="text-slate-300 font-semibold text-base">Daftar Gambar Kosong</h3>
-                <p class="text-slate-500 text-xs mt-1">Silakan unggah gambar di Tab "1. Gambar & Upscale" terlebih dahulu.</p>
             </div>
         </section>
 
-        <!-- TAB 3: CHECKLIST & PANDUAN ADOBE STOCK -->
+        <!-- TAB 3: API SETTINGS -->
         <section id="tab-checklist" class="tab-content hidden space-y-6">
             <div class="bg-adobe-panel border border-adobe-border rounded-xl p-6">
                 <h2 class="text-base font-bold text-white flex items-center gap-2 mb-4">
-                    <i class="fa-solid fa-lightbulb text-amber-400"></i> Tips Menjual Clipart/Kawaii di Adobe
+                    <i class="fa-solid fa-key text-purple-400"></i> Pengaturan API Key Gemini AI
                 </h2>
-                <div class="space-y-4 text-sm text-slate-300">
-                    <div class="bg-adobe-card p-4 rounded-lg border border-adobe-border">
-                        <strong class="text-cyan-400 block mb-1">1. Latar Belakang (Background) Murni Putih</strong>
-                        Pastikan gambar Anda memiliki background putih bersih (atau transparan). Pembeli (desainer) sangat menyukai objek yang mudah dipotong (isolated).
+                <div class="space-y-4">
+                    <div class="bg-adobe-card p-4 rounded-lg border border-adobe-border text-sm text-slate-300">
+                        <p class="mb-3">Agar fitur <b>"Auto AI (Sesuai Gambar)"</b> berfungsi, Anda memerlukan API Key gratis dari Google.</p>
+                        <ol class="list-decimal ml-4 space-y-1 text-cyan-400">
+                            <li>Buka website <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline font-bold text-cyan-300">Google AI Studio (Klik di sini)</a>.</li>
+                            <li>Login dengan akun Google Anda.</li>
+                            <li>Klik tombol biru <b>"Create API Key"</b>.</li>
+                            <li>Copy (Salin) teks panjang yang muncul.</li>
+                            <li>Paste (Tempel) di kotak bawah ini, lalu klik Simpan.</li>
+                        </ol>
                     </div>
-                    <div class="bg-adobe-card p-4 rounded-lg border border-adobe-border">
-                        <strong class="text-cyan-400 block mb-1">2. Hindari Teks pada Gambar</strong>
-                        AI sering menghasilkan teks atau huruf acak. Hapus atau tutup teks tersebut sebelum diupload, karena Adobe menolak gambar dengan bahasa buatan/acak.
+                    
+                    <div class="flex gap-2">
+                        <input type="password" id="api-key-input" placeholder="Paste API Key Anda di sini..." class="flex-1 bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-4 py-2 text-sm text-white outline-none">
+                        <button onclick="saveApiKey()" class="px-5 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-lg transition-all">
+                            Simpan
+                        </button>
                     </div>
-                    <div class="bg-adobe-card p-4 rounded-lg border border-adobe-border">
-                        <strong class="text-cyan-400 block mb-1">3. Saat Upload di Website Adobe Stock</strong>
-                        - Jangan lupa centang <b>"Created using generative AI tools"</b>.<br>
-                        - Jika ditanya "Is there a recognizable person or property?", pilih <b>NO</b>.
-                    </div>
+                    <p id="api-status" class="text-xs text-rose-400 hidden"><i class="fa-solid fa-circle-xmark"></i> API Key belum tersimpan.</p>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-adobe-panel border-t border-adobe-border py-4 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
-            <span>© 2026 Adobe Stock Tool - Dioptimalkan untuk Karakter Kawaii & Clipart</span>
-            <span class="flex items-center space-x-1">
-                <i class="fa-solid fa-shield-halved text-emerald-400"></i>
-                <span>Aman & Gratis Selamanya</span>
-            </span>
-        </div>
-    </footer>
-
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
-        // Global State Store
         let imagesData = [];
 
-        // Category Codes List (Diutamakan kategori yang relevan untuk desain/clipart)
         const ADOBE_CATEGORIES = [
             { id: 2, name: '2 - Arts / Graphic / Illustration' },
             { id: 1, name: '1 - Animals (Karakter Hewan)' },
@@ -250,7 +219,6 @@
             { id: 8, name: '8 - Education / Kids' }
         ];
 
-        // DATABSE KEYWORDS YANG TERBUKTI LARIS DI ADOBE STOCK
         const KEYWORDS_DB = {
             kawaii: "kawaii, cute, cartoon, character, smile, happy, face, mascot, flat vector, illustration, isolated, white background, simple, clipart, adorable, sweet, funny, icon, sticker, graphic, design, kid, playful, drawing",
             food: "food, delicious, meal, snack, sweet, fresh, healthy, tasty, restaurant, cafe, menu, diet, nutrition, ingredient, flavor, yummy, flat vector, illustration, isolated, white background",
@@ -258,12 +226,37 @@
             nature: "environment, sustainable, green energy, ecology, nature, clean, plant, leaf, future, flat vector, illustration, isolated, white background, graphic, eco friendly, organic"
         };
 
-        // DOM Initialization
         document.addEventListener('DOMContentLoaded', () => {
             setupDropzone();
+            checkApiKeyStatus();
         });
 
-        // Tab Navigation
+        function checkApiKeyStatus() {
+            const savedKey = localStorage.getItem('gemini_api_key');
+            const statusText = document.getElementById('api-status');
+            const inputField = document.getElementById('api-key-input');
+            
+            if (savedKey) {
+                inputField.value = savedKey;
+                statusText.innerHTML = `<i class="fa-solid fa-circle-check"></i> API Key tersimpan aman di browser Anda.`;
+                statusText.className = "text-xs text-emerald-400 block";
+            } else {
+                statusText.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> API Key belum tersimpan.`;
+                statusText.className = "text-xs text-rose-400 block";
+            }
+        }
+
+        function saveApiKey() {
+            const input = document.getElementById('api-key-input').value.trim();
+            if (input.length > 20) {
+                localStorage.setItem('gemini_api_key', input);
+                checkApiKeyStatus();
+                showToast("API Key berhasil disimpan!", "success");
+            } else {
+                showToast("API Key tidak valid.", "error");
+            }
+        }
+
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -276,12 +269,9 @@
             activeBtn.classList.add('bg-gradient-to-r', 'from-cyan-500/20', 'to-blue-500/20', 'text-cyan-400', 'border', 'border-cyan-500/30');
             activeBtn.classList.remove('text-slate-400');
 
-            if (tabId === 'tab-metadata') {
-                renderMetadataList();
-            }
+            if (tabId === 'tab-metadata') renderMetadataList();
         }
 
-        // Setup Drag and Drop
         function setupDropzone() {
             const dropzone = document.getElementById('dropzone');
             const fileInput = document.getElementById('file-input');
@@ -289,29 +279,20 @@
             dropzone.addEventListener('click', () => fileInput.click());
 
             ['dragenter', 'dragover'].forEach(eventName => {
-                dropzone.addEventListener(eventName, (e) => {
-                    e.preventDefault();
-                    dropzone.classList.add('dropzone-active');
-                });
+                dropzone.addEventListener(eventName, (e) => { e.preventDefault(); dropzone.classList.add('dropzone-active'); });
             });
 
             ['dragleave', 'drop'].forEach(eventName => {
-                dropzone.addEventListener(eventName, (e) => {
-                    e.preventDefault();
-                    dropzone.classList.remove('dropzone-active');
-                });
+                dropzone.addEventListener(eventName, (e) => { e.preventDefault(); dropzone.classList.remove('dropzone-active'); });
             });
 
             dropzone.addEventListener('drop', (e) => {
                 const dt = e.dataTransfer;
-                const files = dt.files;
-                handleFiles(files);
+                handleFiles(dt.files);
             });
         }
 
-        function handleFileSelect(event) {
-            handleFiles(event.target.files);
-        }
+        function handleFileSelect(event) { handleFiles(event.target.files); }
 
         function handleFiles(files) {
             if (!files || files.length === 0) return;
@@ -328,7 +309,6 @@
                         const origMP = (origW * origH) / 1000000;
                         const isReady = origMP >= 4.0;
 
-                        // Target dimensions if upscaled (Min 4.25 MP)
                         let targetW = origW;
                         let targetH = origH;
                         let targetMP = origMP;
@@ -340,12 +320,8 @@
                             targetMP = (targetW * targetH) / 1000000;
                         }
 
-                        // Generate title from filename (default)
-                        let cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
-                        // Remove numbers often generated by AI like "DALL-E 2023..."
-                        cleanName = cleanName.replace(/[0-9]/g, '').trim();
+                        let cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ").replace(/[0-9]/g, '').trim();
                         if(cleanName.length < 3) cleanName = "Cute character object";
-                        
                         const formattedTitle = cleanName.charAt(0).toUpperCase() + cleanName.slice(1) + ", cute kawaii cartoon character isolated on white background, 2d vector illustration clipart";
 
                         const imageObj = {
@@ -364,8 +340,8 @@
                             targetMP: targetMP,
                             upscaledDataUrl: null,
                             isUpscaled: false,
-                            title: formattedTitle.slice(0, 190), // Adobe allows up to 200 chars, but recommended is detailed
-                            category: 2, // Default Arts / Illustration
+                            title: formattedTitle.slice(0, 190),
+                            category: 2,
                             keywords: []
                         };
 
@@ -377,11 +353,9 @@
                 };
                 reader.readAsDataURL(file);
             });
-
             showToast("Berhasil memuat gambar!", "success");
         }
 
-        // Render Grid of Images (Tab 1)
         function renderImageGrid() {
             const grid = document.getElementById('image-grid');
             const emptyState = document.getElementById('empty-state');
@@ -399,134 +373,71 @@
 
             grid.innerHTML = imagesData.map(item => {
                 const statusBadge = item.isReady || item.isUpscaled ?
-                    `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
-                        <i class="fa-solid fa-circle-check"></i> Siap (${(item.isUpscaled ? item.targetMP : item.origMP).toFixed(1)} MP)
-                     </span>` :
-                    `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
-                        <i class="fa-solid fa-triangle-exclamation"></i> Terlalu Kecil
-                     </span>`;
+                    `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-circle-check"></i> Siap</span>` :
+                    `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-triangle-exclamation"></i> Kecil</span>`;
 
                 return `
-                    <div class="bg-adobe-panel border border-adobe-border rounded-xl overflow-hidden flex flex-col justify-between hover:border-slate-600 transition-all">
+                    <div class="bg-adobe-panel border border-adobe-border rounded-xl overflow-hidden flex flex-col hover:border-slate-600 transition-all">
                         <div class="p-4 space-y-3">
-                            <div class="relative h-44 bg-white rounded-lg overflow-hidden flex items-center justify-center border border-slate-200 checkerboard-bg">
+                            <div class="relative h-44 bg-white rounded-lg flex items-center justify-center border border-slate-200">
                                 <img src="${item.upscaledDataUrl || item.src}" class="max-h-full max-w-full object-contain">
-                                <span class="absolute top-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-mono px-2 py-0.5 rounded border border-white/10">
-                                    ${item.isUpscaled ? item.targetW + 'x' + item.targetH : item.origW + 'x' + item.origH} px
-                                </span>
                             </div>
-
-                            <div>
-                                <div class="flex items-center justify-between mt-2">
-                                    <h4 class="text-xs font-bold text-white truncate w-3/5" title="${item.name}">${item.name}</h4>
-                                    ${statusBadge}
-                                </div>
+                            <div class="flex justify-between mt-2">
+                                <h4 class="text-xs font-bold text-white truncate w-3/5">${item.name}</h4>
+                                ${statusBadge}
                             </div>
                         </div>
-
-                        <div class="p-4 bg-adobe-card/50 border-t border-adobe-border flex items-center justify-between gap-2">
+                        <div class="p-4 bg-adobe-card/50 border-t border-adobe-border flex justify-between gap-2">
                             ${!item.isReady && !item.isUpscaled ? `
-                                <button onclick="upscaleSingleImage('${item.id}')" class="flex-1 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs rounded-lg transition-all flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Auto-Upscale (Jadi 4MP)
-                                </button>
+                                <button onclick="upscaleSingleImage('${item.id}')" class="flex-1 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs rounded-lg transition-all">Auto-Upscale</button>
                             ` : `
-                                <button onclick="downloadImage('${item.id}')" class="flex-1 py-1.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-xs rounded-lg transition-all flex items-center justify-center gap-1.5 border border-slate-500">
-                                    <i class="fa-solid fa-download"></i> Unduh JPG (Siap Upload)
-                                </button>
+                                <button onclick="downloadImage('${item.id}')" class="flex-1 py-1.5 bg-slate-700 text-white font-semibold text-xs rounded-lg border border-slate-500">Unduh JPG</button>
                             `}
-                            <button onclick="deleteImage('${item.id}')" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-all" title="Hapus Gambar">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </button>
+                            <button onclick="deleteImage('${item.id}')" class="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg"><i class="fa-solid fa-trash-can"></i></button>
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
-        // Upscale Single Image
         function upscaleSingleImage(id) {
             const item = imagesData.find(img => img.id === id);
             if (!item) return;
-
             const canvas = document.createElement('canvas');
-            canvas.width = item.targetW;
-            canvas.height = item.targetH;
+            canvas.width = item.targetW; canvas.height = item.targetH;
             const ctx = canvas.getContext('2d');
-
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'high';
+            ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
             ctx.drawImage(item.imgElement, 0, 0, item.targetW, item.targetH);
-
-            item.upscaledDataUrl = canvas.toDataURL('image/jpeg', 1.0); // Kualitas maksimum untuk Stock
-            item.isUpscaled = true;
-            item.isReady = true;
-
-            renderImageGrid();
-            updateStats();
-            showToast(`Berhasil diperbesar!`, "success");
+            item.upscaledDataUrl = canvas.toDataURL('image/jpeg', 1.0);
+            item.isUpscaled = true; item.isReady = true;
+            renderImageGrid(); updateStats();
         }
 
-        // Upscale All Images
         function upscaleAllImages() {
-            let count = 0;
-            imagesData.forEach(item => {
-                if (!item.isReady && !item.isUpscaled) {
-                    upscaleSingleImage(item.id);
-                    count++;
-                }
-            });
-            if (count > 0) {
-                showToast(`${count} gambar berhasil diperbesar!`, "success");
-            } else {
-                showToast("Semua gambar sudah cukup besar.", "info");
-            }
+            imagesData.forEach(item => { if (!item.isReady && !item.isUpscaled) upscaleSingleImage(item.id); });
+            showToast("Semua gambar diperbesar!", "success");
         }
 
-        // Download Image 
         function downloadImage(id) {
             const item = imagesData.find(img => img.id === id);
             if (!item) return;
-            
             const dataUrl = item.upscaledDataUrl || item.src;
-            const filename = item.exportFilename;
-
-            fetch(dataUrl)
-                .then(res => res.blob())
-                .then(blob => {
-                    const blobUrl = window.URL.createObjectURL(blob);
-                    const link = document.createElement('a');
-                    link.href = blobUrl;
-                    link.download = filename;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    window.URL.revokeObjectURL(blobUrl);
-                    showToast("Gambar diunduh!", "success");
-                });
+            fetch(dataUrl).then(res => res.blob()).then(blob => {
+                const blobUrl = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = blobUrl; link.download = item.exportFilename;
+                document.body.appendChild(link); link.click(); document.body.removeChild(link);
+                window.URL.revokeObjectURL(blobUrl);
+            });
         }
 
-        // Delete Image
-        function deleteImage(id) {
-            imagesData = imagesData.filter(img => img.id !== id);
-            renderImageGrid();
-            updateStats();
-        }
-
-        // Clear All
-        function clearAllImages() {
-            imagesData = [];
-            renderImageGrid();
-            updateStats();
-        }
-
-        // Update Header Stats
+        function deleteImage(id) { imagesData = imagesData.filter(img => img.id !== id); renderImageGrid(); updateStats(); }
+        function clearAllImages() { imagesData = []; renderImageGrid(); updateStats(); }
         function updateStats() {
             document.getElementById('stat-total').innerText = imagesData.length;
-            const readyCount = imagesData.filter(img => img.isReady || img.isUpscaled).length;
-            document.getElementById('stat-ready').innerText = readyCount;
+            document.getElementById('stat-ready').innerText = imagesData.filter(img => img.isReady || img.isUpscaled).length;
         }
 
-        // RENDER TAB 2: METADATA & CSV
         function renderMetadataList() {
             const container = document.getElementById('metadata-list');
             const emptyState = document.getElementById('empty-metadata-state');
@@ -536,79 +447,39 @@
                 emptyState.classList.remove('hidden');
                 return;
             }
-
             emptyState.classList.add('hidden');
 
-            container.innerHTML = imagesData.map((item, index) => {
-                const categoryOptions = ADOBE_CATEGORIES.map(cat => 
-                    `<option value="${cat.id}" ${item.category == cat.id ? 'selected' : ''}>${cat.name}</option>`
-                ).join('');
-
-                const keywordChips = item.keywords.map(kw => 
-                    `<span class="bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs px-2.5 py-1 rounded-md flex items-center gap-1.5 border border-slate-600">
-                        ${kw}
-                        <i onclick="removeKeyword('${item.id}', '${kw}')" class="fa-solid fa-xmark text-slate-400 hover:text-rose-400 cursor-pointer"></i>
-                    </span>`
-                ).join('');
+            container.innerHTML = imagesData.map(item => {
+                const catOpts = ADOBE_CATEGORIES.map(cat => `<option value="${cat.id}" ${item.category == cat.id ? 'selected' : ''}>${cat.name}</option>`).join('');
+                const kws = item.keywords.map(kw => `<span class="bg-slate-700 text-slate-200 text-xs px-2 py-1 rounded-md border border-slate-600 flex items-center gap-1">${kw} <i onclick="removeKeyword('${item.id}', '${kw}')" class="fa-solid fa-xmark text-slate-400 cursor-pointer"></i></span>`).join('');
 
                 return `
                     <div class="bg-adobe-panel border border-adobe-border rounded-xl p-4 sm:p-5 space-y-4">
                         <div class="flex flex-col sm:flex-row items-start gap-4">
-                            <div class="w-full sm:w-24 h-32 sm:h-24 bg-white rounded-lg overflow-hidden border border-slate-200 flex-shrink-0 flex items-center justify-center">
+                            <div class="w-full sm:w-24 h-32 sm:h-24 bg-white rounded-lg flex-shrink-0 flex items-center justify-center border border-slate-200">
                                 <img src="${item.upscaledDataUrl || item.src}" class="max-h-full max-w-full object-contain">
                             </div>
-
                             <div class="flex-1 w-full space-y-3">
                                 <div>
                                     <label class="text-xs font-semibold text-cyan-400 block mb-1">Judul / Title (Inggris)</label>
-                                    <textarea oninput="updateTitle('${item.id}', this.value)" class="w-full bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-3 py-2 text-xs text-white outline-none resize-none h-16">${item.title}</textarea>
+                                    <textarea oninput="updateTitle('${item.id}', this.value)" class="w-full bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-3 py-2 text-xs text-white resize-none h-16">${item.title}</textarea>
                                 </div>
-
                                 <div>
                                     <label class="text-xs font-semibold text-slate-300 block mb-1">Kategori Adobe Stock</label>
-                                    <select onchange="updateCategory('${item.id}', this.value)" class="w-full bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-3 py-2 text-xs text-white outline-none">
-                                        ${categoryOptions}
-                                    </select>
+                                    <select onchange="updateCategory('${item.id}', this.value)" class="w-full bg-adobe-card border border-adobe-border rounded-lg px-3 py-2 text-xs text-white">${catOpts}</select>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Keywords Section -->
                         <div class="space-y-3 border-t border-adobe-border/60 pt-4">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                                <div>
-                                    <label class="text-xs font-semibold text-slate-300 block mb-1">Generate Kata Kunci SEO Otomatis</label>
-                                    <div class="flex flex-wrap gap-2">
-                                        <button onclick="generateKeywordsWithAI('${item.id}')" id="btn-ai-${item.id}" class="text-xs font-bold text-white bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 px-3 py-1.5 rounded-lg shadow-lg transition-all flex items-center gap-1.5 border border-purple-500/50">
-                                            <i class="fa-solid fa-wand-magic-sparkles"></i> Auto AI (Sesuai Gambar)
-                                        </button>
-                                        <button onclick="applyPreset('${item.id}', 'kawaii')" class="text-xs font-bold text-slate-900 bg-gradient-to-r from-yellow-300 to-amber-400 hover:from-yellow-200 hover:to-amber-300 px-3 py-1.5 rounded-lg shadow-lg transition-all">
-                                            😊 Preset Kawaii/Lucu
-                                        </button>
-                                        <button onclick="applyPreset('${item.id}', 'food')" class="text-xs font-bold text-slate-900 bg-gradient-to-r from-orange-300 to-rose-400 hover:from-orange-200 hover:to-rose-300 px-3 py-1.5 rounded-lg shadow-lg transition-all">
-                                            🍔 Preset Makanan
-                                        </button>
-                                        <button onclick="applyPreset('${item.id}', 'nature')" class="text-xs font-bold text-slate-900 bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-300 hover:to-teal-400 px-3 py-1.5 rounded-lg shadow-lg transition-all">
-                                            🌿 Preset Alam
-                                        </button>
-                                    </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="generateKeywordsWithAI('${item.id}')" id="btn-ai-${item.id}" class="text-xs font-bold text-white bg-gradient-to-r from-purple-500 to-indigo-600 px-3 py-1.5 rounded-lg flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles"></i> Auto AI Sesuai Gambar</button>
+                                    <button onclick="applyPreset('${item.id}', 'kawaii')" class="text-xs font-bold text-slate-900 bg-gradient-to-r from-yellow-300 to-amber-400 px-3 py-1.5 rounded-lg">😊 Preset Kawaii</button>
                                 </div>
-                                <div class="text-right">
-                                    <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded border border-cyan-500/20 font-mono">
-                                        Total: ${item.keywords.length} Kata
-                                    </span>
-                                </div>
+                                <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded border border-cyan-500/20 font-mono">Total: ${item.keywords.length}</span>
                             </div>
-
                             <div class="flex flex-wrap gap-1.5 bg-adobe-card p-3 rounded-lg border border-adobe-border min-h-[60px]">
-                                ${item.keywords.length === 0 ? '<span class="text-xs text-slate-500 italic">Belum ada kata kunci. Klik tombol preset di atas!</span>' : keywordChips}
-                            </div>
-
-                            <div class="flex gap-2">
-                                <input type="text" id="input-kw-${item.id}" placeholder="Tambah kata bahasa inggris manual (pisahkan koma)..." onkeydown="handleKeywordInput(event, '${item.id}')" class="flex-1 bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-3 py-2 text-xs text-white outline-none">
-                                <button onclick="addManualKeyword('${item.id}')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold rounded-lg border border-slate-500">
-                                    Tambah
-                                </button>
+                                ${item.keywords.length === 0 ? '<span class="text-xs text-slate-500 italic">Klik tombol AI di atas!</span>' : kws}
                             </div>
                         </div>
                     </div>
@@ -616,79 +487,31 @@
             }).join('');
         }
 
-        function updateTitle(id, val) {
-            const item = imagesData.find(img => img.id === id);
-            if (item) item.title = val;
-        }
-
-        function updateCategory(id, val) {
-            const item = imagesData.find(img => img.id === id);
-            if (item) item.category = parseInt(val);
-        }
-
+        function updateTitle(id, val) { const item = imagesData.find(img => img.id === id); if (item) item.title = val; }
+        function updateCategory(id, val) { const item = imagesData.find(img => img.id === id); if (item) item.category = parseInt(val); }
         function removeKeyword(id, kw) {
             const item = imagesData.find(img => img.id === id);
-            if (item) {
-                item.keywords = item.keywords.filter(k => k !== kw);
-                renderMetadataList();
-            }
+            if (item) { item.keywords = item.keywords.filter(k => k !== kw); renderMetadataList(); }
         }
 
-        function handleKeywordInput(e, id) {
-            if (e.key === 'Enter' || e.key === ',') {
-                e.preventDefault();
-                addManualKeyword(id);
-            }
-        }
-
-        function addManualKeyword(id) {
-            const input = document.getElementById(`input-kw-${id}`);
-            if (!input || !input.value.trim()) return;
-
-            const item = imagesData.find(img => img.id === id);
-            if (item) {
-                const newKwList = input.value.split(',').map(s => s.trim().toLowerCase()).filter(s => s.length > 0);
-                newKwList.forEach(kw => {
-                    if (!item.keywords.includes(kw)) {
-                        item.keywords.push(kw);
-                    }
-                });
-                renderMetadataList();
-            }
-        }
-
-        // Fetch wrapper with exponential backoff for AI rate limits
-        async function fetchWithRetry(url, options, maxRetries = 3) {
-            let delay = 1000;
-            for (let i = 0; i < maxRetries; i++) {
-                try {
-                    const response = await fetch(url, options);
-                    if (response.status === 429) {
-                        throw new Error("Throttled");
-                    }
-                    return response;
-                } catch (err) {
-                    if (i === maxRetries - 1) throw err;
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    delay *= 2;
-                }
-            }
-        }
-
-        // GENERATE KEYWORDS WITH GEMINI AI VISION
         async function generateKeywordsWithAI(id) {
+            const apiKey = localStorage.getItem('gemini_api_key');
+            
+            if (!apiKey || apiKey.trim() === '') {
+                switchTab('tab-checklist');
+                showToast("Silakan masukkan API Key Anda terlebih dahulu di sini.", "error");
+                return;
+            }
+
             const item = imagesData.find(img => img.id === id);
             if (!item) return;
 
             const btn = document.getElementById(`btn-ai-${id}`);
             const originalHtml = btn.innerHTML;
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> AI Menganalisa...`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Menganalisa...`;
             btn.disabled = true;
 
-            showToast("AI Vision sedang membaca isi gambar Anda...", "info");
-
             try {
-                // Siapkan data gambar
                 const dataUrl = item.upscaledDataUrl || item.src;
                 const mimeType = dataUrl.substring(5, dataUrl.indexOf(';'));
                 const base64Data = dataUrl.split(',')[1];
@@ -696,128 +519,88 @@
                 const prompt = "Act as an expert microstock contributor. Analyze this image and provide exactly 35 highly relevant, descriptive SEO keywords for Adobe Stock. Include words describing the style (e.g., flat vector, realistic), main subjects, concepts, and colors. Output ONLY a comma-separated list of keywords. No other text.";
 
                 const payload = {
-                    contents: [
-                        {
-                            role: "user",
-                            parts: [
-                                { text: prompt },
-                                {
-                                    inlineData: {
-                                        mimeType: mimeType,
-                                        data: base64Data
-                                    }
-                                }
-                            ]
-                        }
-                    ]
+                    contents: [{ role: "user", parts: [{ text: prompt }, { inlineData: { mimeType: mimeType, data: base64Data } }] }]
                 };
 
-                const apiKey = ""; // API Key otomatis ditangani oleh environment
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-                const response = await fetchWithRetry(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+                const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+                
+                if (response.status === 400 || response.status === 403) {
+                    throw new Error("API Key salah atau tidak valid.");
+                }
+                if (!response.ok) throw new Error(`Server Sibuk (${response.status})`);
 
                 const result = await response.json();
                 
-                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content) {
-                    let aiText = result.candidates[0].content.parts[0].text;
-                    // Bersihkan format teks
-                    aiText = aiText.replace(/\n/g, '').replace(/\.$/, '').toLowerCase();
-                    
+                if (result.candidates && result.candidates[0].content) {
+                    let aiText = result.candidates[0].content.parts[0].text.replace(/\n/g, '').replace(/\.$/, '').toLowerCase();
                     const kwArray = aiText.split(',').map(s => s.trim()).filter(s => s.length > 0);
-                    
-                    // Gabungkan dengan keyword yang sudah ada tanpa duplikat
                     item.keywords = Array.from(new Set([...item.keywords, ...kwArray]));
                     
-                    showToast("Luar biasa! AI berhasil merumuskan kata kunci.", "success");
-                    renderMetadataList(); // Otomatis mengembalikan status tombol
+                    showToast("AI berhasil merumuskan kata kunci!", "success");
+                    renderMetadataList(); 
                 } else {
-                    throw new Error("Respons AI tidak valid");
+                    throw new Error("Respons gagal.");
                 }
             } catch (error) {
-                console.error("AI Gen Error:", error);
-                showToast("Koneksi AI sedang sibuk. Silakan coba lagi.", "error");
+                console.error(error);
+                if(error.message.includes("API Key")) {
+                    showToast(error.message, "error");
+                    switchTab('tab-checklist');
+                } else {
+                    showToast("Koneksi AI sibuk. Silakan coba lagi.", "error");
+                }
                 btn.innerHTML = originalHtml;
                 btn.disabled = false;
             }
         }
 
-        // Apply specific preset based on user choice
         function applyPreset(id, type) {
             const item = imagesData.find(img => img.id === id);
             if (item && KEYWORDS_DB[type]) {
                 const kwArray = KEYWORDS_DB[type].split(',').map(s => s.trim().toLowerCase());
-                // Combine and remove duplicates
                 item.keywords = Array.from(new Set([...item.keywords, ...kwArray]));
                 renderMetadataList();
-                showToast(`Kata Kunci Tema ditambahkan!`, "success");
+                showToast(`Preset ditambahkan!`, "success");
             }
         }
 
-        // EXPORT TO ADOBE STOCK CSV
         function exportToCSV() {
-            if (imagesData.length === 0) {
-                showToast("Tidak ada data gambar!", "error");
-                return;
-            }
+            if (imagesData.length === 0) { showToast("Tidak ada data gambar!", "error"); return; }
 
             const headers = ["Filename", "Title", "Keywords", "Category", "Releases"];
             const rows = imagesData.map(item => {
                 const filename = item.exportFilename; 
                 const title = `"${item.title.replace(/"/g, '""')}"`;
                 const keywords = `"${item.keywords.join(', ').replace(/"/g, '""')}"`;
-                const category = item.category;
-
-                return [filename, title, keywords, category, ""].join(',');
+                return [filename, title, keywords, item.category, ""].join(',');
             });
 
             const csvContent = [headers.join(','), ...rows].join('\n');
-            
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const blobUrl = URL.createObjectURL(blob);
             
             const link = document.createElement("a");
-            link.setAttribute("href", blobUrl);
-            link.setAttribute("download", "Metadata_AdobeStock.csv");
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            link.href = blobUrl; link.download = "Metadata_AdobeStock.csv";
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
             URL.revokeObjectURL(blobUrl);
-
-            showToast("File CSV Berhasil Diunduh!", "success");
+            showToast("CSV Berhasil Diunduh!", "success");
         }
 
-        // CUSTOM TOAST NOTIFICATION
         function showToast(message, type = "info") {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
-
             let iconClass = "fa-circle-info text-cyan-400";
             if (type === "success") iconClass = "fa-circle-check text-emerald-400";
             if (type === "error") iconClass = "fa-circle-exclamation text-rose-400";
 
             toast.className = "pointer-events-auto bg-slate-800 border border-slate-700 text-white text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-2 opacity-0";
-            toast.innerHTML = `
-                <i class="fa-solid ${iconClass} text-base"></i>
-                <span class="font-medium">${message}</span>
-            `;
-
+            toast.innerHTML = `<i class="fa-solid ${iconClass} text-base"></i><span class="font-medium">${message}</span>`;
             container.appendChild(toast);
 
-            setTimeout(() => {
-                toast.classList.remove('translate-y-2', 'opacity-0');
-            }, 10);
-
-            setTimeout(() => {
-                toast.classList.add('opacity-0', 'translate-y-2');
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
+            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-2'); setTimeout(() => toast.remove(), 300); }, 3000);
         }
     </script>
 </body>
