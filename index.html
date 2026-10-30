@@ -78,7 +78,7 @@
                     <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
                         Adobe Stock <span class="gradient-text font-extrabold">Contributor Tool</span>
                     </h1>
-                    <p class="text-xs text-slate-400">Auto Upscaler, Resolution Checker & Metadata CSV Exporter</p>
+                    <p class="text-xs text-slate-400">Auto Upscaler, Metadata Kawaii & CSV Exporter v2</p>
                 </div>
             </div>
 
@@ -100,17 +100,17 @@
     <div class="bg-adobe-panel/80 backdrop-blur-md border-b border-adobe-border sticky top-16 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="flex space-x-6 overflow-x-auto py-2" id="nav-tabs">
-                <button onclick="switchTab('tab-upscaler')" id="btn-tab-upscaler" class="tab-btn active px-4 py-2.5 text-sm font-semibold rounded-lg flex items-center space-x-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 border border-cyan-500/30 transition-all">
+                <button onclick="switchTab('tab-upscaler')" id="btn-tab-upscaler" class="tab-btn active px-4 py-2.5 text-sm font-semibold rounded-lg flex items-center space-x-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 border border-cyan-500/30 transition-all whitespace-nowrap">
                     <i class="fa-solid fa-expand"></i>
-                    <span>1. Gambar & Auto-Upscale</span>
+                    <span>1. Gambar & Upscale</span>
                 </button>
-                <button onclick="switchTab('tab-metadata')" id="btn-tab-metadata" class="tab-btn px-4 py-2.5 text-sm font-semibold rounded-lg flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-adobe-card transition-all">
+                <button onclick="switchTab('tab-metadata')" id="btn-tab-metadata" class="tab-btn px-4 py-2.5 text-sm font-semibold rounded-lg flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-adobe-card transition-all whitespace-nowrap">
                     <i class="fa-solid fa-tags"></i>
-                    <span>2. Metadata & CSV Generator</span>
+                    <span>2. Judul & Kata Kunci</span>
                 </button>
-                <button onclick="switchTab('tab-checklist')" id="btn-tab-checklist" class="tab-btn px-4 py-2.5 text-sm font-semibold rounded-lg flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-adobe-card transition-all">
+                <button onclick="switchTab('tab-checklist')" id="btn-tab-checklist" class="tab-btn px-4 py-2.5 text-sm font-semibold rounded-lg flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-adobe-card transition-all whitespace-nowrap">
                     <i class="fa-solid fa-list-check"></i>
-                    <span>3. Checklist & Panduan AI</span>
+                    <span>3. Panduan Upload</span>
                 </button>
             </nav>
         </div>
@@ -133,11 +133,11 @@
                     </div>
                     <div>
                         <p class="text-base font-semibold text-white">Tarik & Lepas Gambar di Sini, atau <span class="text-cyan-400 underline">Pilih File</span></p>
-                        <p class="text-xs text-slate-400 mt-1">Mendukung Format JPG, PNG, WEBP (Batch Upload)</p>
+                        <p class="text-xs text-slate-400 mt-1">Sangat cocok untuk gambar hasil AI (Bing, Canva, Midjourney)</p>
                     </div>
                     <div class="flex items-center space-x-2 text-xs text-slate-400 bg-adobe-card px-3 py-1.5 rounded-full border border-adobe-border">
                         <i class="fa-solid fa-circle-info text-cyan-400"></i>
-                        <span>Persyaratan Adobe Stock: Minimal 4.0 Megapixel ($2000 \times 2000 \text{px}$)</span>
+                        <span>Sistem otomatis menaikkan ukuran ke standar Adobe (Min. 4 Megapixel)</span>
                     </div>
                 </div>
             </div>
@@ -148,14 +148,11 @@
                     <span class="text-sm font-medium text-slate-300">Aksi Masal:</span>
                     <button onclick="upscaleAllImages()" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-900 font-bold text-xs rounded-lg shadow-lg shadow-cyan-500/20 flex items-center space-x-2 transition-all">
                         <i class="fa-solid fa-bolt"></i>
-                        <span>Auto-Upscale Semua yang < 4MP</span>
+                        <span>Auto-Upscale Semua</span>
                     </button>
                     <button onclick="clearAllImages()" class="px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold rounded-lg border border-rose-500/30 transition-all">
                         <i class="fa-solid fa-trash-can mr-1"></i> Hapus Semua
                     </button>
-                </div>
-                <div class="text-xs text-slate-400">
-                    Sistem otomatis menggunakan algoritma bilinear high-smoothing Canvas.
                 </div>
             </div>
 
@@ -167,30 +164,24 @@
             <!-- Empty State -->
             <div id="empty-state" class="text-center py-16 border border-adobe-border/50 rounded-2xl bg-adobe-panel/30">
                 <i class="fa-regular fa-images text-4xl text-slate-600 mb-3"></i>
-                <h3 class="text-slate-300 font-semibold text-base">Belum Ada Gambar Diunggah</h3>
-                <p class="text-slate-500 text-xs mt-1">Unggah gambar Anda untuk memeriksa resolusi dan memperbesar ukuran secara otomatis.</p>
+                <h3 class="text-slate-300 font-semibold text-base">Belum Ada Gambar</h3>
+                <p class="text-slate-500 text-xs mt-1">Unggah gambar karakter lucu Anda untuk dibesarkan resolusinya.</p>
             </div>
         </section>
 
         <!-- TAB 2: METADATA & CSV GENERATOR -->
         <section id="tab-metadata" class="tab-content hidden space-y-6">
-            <div class="bg-adobe-panel border border-adobe-border rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
+            <div class="bg-adobe-panel border border-adobe-border rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
                     <h2 class="text-base font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-file-csv text-emerald-400"></i> Generator Metadata & Export CSV
+                        <i class="fa-solid fa-tags text-cyan-400"></i> Pengisian Metadata & SEO
                     </h2>
-                    <p class="text-xs text-slate-400 mt-0.5">Kelola Judul, Kategori, dan Kata Kunci untuk diunggah masal ke Adobe Stock Contributor Portal.</p>
+                    <p class="text-xs text-slate-400 mt-0.5">Isi judul dan kata kunci agar gambar Anda cepat laku di pencarian Adobe Stock.</p>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <button onclick="autoFillAllMetadata()" class="px-4 py-2 bg-adobe-card hover:bg-slate-700 border border-adobe-border text-xs font-semibold text-cyan-400 rounded-lg transition-all flex items-center space-x-1.5">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>Isi Otomatis Rekomendasi AI</span>
-                    </button>
-                    <button onclick="exportToCSV()" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-lg shadow-lg shadow-emerald-500/20 flex items-center space-x-2 transition-all">
-                        <i class="fa-solid fa-download"></i>
-                        <span>Export CSV Adobe Stock</span>
-                    </button>
-                </div>
+                <button onclick="exportToCSV()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm rounded-lg shadow-lg shadow-emerald-500/20 flex items-center space-x-2 transition-all w-full sm:w-auto justify-center">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Download File CSV</span>
+                </button>
             </div>
 
             <!-- Metadata Cards Container -->
@@ -201,96 +192,30 @@
             <!-- Empty Metadata State -->
             <div id="empty-metadata-state" class="text-center py-16 border border-adobe-border/50 rounded-2xl bg-adobe-panel/30">
                 <i class="fa-solid fa-tags text-4xl text-slate-600 mb-3"></i>
-                <h3 class="text-slate-300 font-semibold text-base">Daftar Metadata Kosong</h3>
-                <p class="text-slate-500 text-xs mt-1">Silakan unggah gambar di Tab "Gambar & Auto-Upscale" terlebih dahulu.</p>
+                <h3 class="text-slate-300 font-semibold text-base">Daftar Gambar Kosong</h3>
+                <p class="text-slate-500 text-xs mt-1">Silakan unggah gambar di Tab "1. Gambar & Upscale" terlebih dahulu.</p>
             </div>
         </section>
 
         <!-- TAB 3: CHECKLIST & PANDUAN ADOBE STOCK -->
         <section id="tab-checklist" class="tab-content hidden space-y-6">
-            <!-- Progress Bar Card -->
             <div class="bg-adobe-panel border border-adobe-border rounded-xl p-6">
-                <div class="flex items-center justify-between mb-3">
-                    <h2 class="text-base font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-clipboard-check text-cyan-400"></i> Checklist Kepatuhan Kontributor
-                    </h2>
-                    <span id="checklist-progress-text" class="text-xs font-bold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20">
-                        0 / 6 Terpenuhi
-                    </span>
-                </div>
-                <div class="w-full bg-adobe-card rounded-full h-2.5 overflow-hidden border border-adobe-border">
-                    <div id="checklist-bar" class="bg-gradient-to-r from-cyan-400 to-blue-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
-                </div>
-            </div>
-
-            <!-- Interactive Checklist Items -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <label class="bg-adobe-panel border border-adobe-border hover:border-slate-600 rounded-xl p-4 flex items-start space-x-3 cursor-pointer transition-all">
-                    <input type="checkbox" onchange="updateChecklistProgress()" class="checklist-item mt-1 w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400 bg-adobe-card border-adobe-border">
-                    <div>
-                        <span class="text-sm font-semibold text-white block">Centang Lisensi Generative AI</span>
-                        <span class="text-xs text-slate-400">Wajib mencentang kotak "Created using generative AI tools" saat mengunggah di portal Adobe Stock.</span>
+                <h2 class="text-base font-bold text-white flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-lightbulb text-amber-400"></i> Tips Menjual Clipart/Kawaii di Adobe
+                </h2>
+                <div class="space-y-4 text-sm text-slate-300">
+                    <div class="bg-adobe-card p-4 rounded-lg border border-adobe-border">
+                        <strong class="text-cyan-400 block mb-1">1. Latar Belakang (Background) Murni Putih</strong>
+                        Pastikan gambar Anda memiliki background putih bersih (atau transparan). Pembeli (desainer) sangat menyukai objek yang mudah dipotong (isolated).
                     </div>
-                </label>
-
-                <label class="bg-adobe-panel border border-adobe-border hover:border-slate-600 rounded-xl p-4 flex items-start space-x-3 cursor-pointer transition-all">
-                    <input type="checkbox" onchange="updateChecklistProgress()" class="checklist-item mt-1 w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400 bg-adobe-card border-adobe-border">
-                    <div>
-                        <span class="text-sm font-semibold text-white block">Pembersihan Merek & Logo</span>
-                        <span class="text-xs text-slate-400">Pastikan tidak ada logo komersial (Apple, Nike, Windows, dll) atau tulisan merek terdaftar pada aset.</span>
+                    <div class="bg-adobe-card p-4 rounded-lg border border-adobe-border">
+                        <strong class="text-cyan-400 block mb-1">2. Hindari Teks pada Gambar</strong>
+                        AI sering menghasilkan teks atau huruf acak. Hapus atau tutup teks tersebut sebelum diupload, karena Adobe menolak gambar dengan bahasa buatan/acak.
                     </div>
-                </label>
-
-                <label class="bg-adobe-panel border border-adobe-border hover:border-slate-600 rounded-xl p-4 flex items-start space-x-3 cursor-pointer transition-all">
-                    <input type="checkbox" onchange="updateChecklistProgress()" class="checklist-item mt-1 w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400 bg-adobe-card border-adobe-border">
-                    <div>
-                        <span class="text-sm font-semibold text-white block">Memenuhi Standar 4 Megapixel</span>
-                        <span class="text-xs text-slate-400">Setiap gambar sudah diverifikasi beresolusi minimal 4.0 MP (contoh: $2000 \times 2000 \text{px}$).</span>
-                    </div>
-                </label>
-
-                <label class="bg-adobe-panel border border-adobe-border hover:border-slate-600 rounded-xl p-4 flex items-start space-x-3 cursor-pointer transition-all">
-                    <input type="checkbox" onchange="updateChecklistProgress()" class="checklist-item mt-1 w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400 bg-adobe-card border-adobe-border">
-                    <div>
-                        <span class="text-sm font-semibold text-white block">Bebas Kata Kunci AI Terlarang</span>
-                        <span class="text-xs text-slate-400">Tidak memasukkan nama engine AI (seperti Midjourney, DALL-E, Firefly) ke dalam tag keyword.</span>
-                    </div>
-                </label>
-
-                <label class="bg-adobe-panel border border-adobe-border hover:border-slate-600 rounded-xl p-4 flex items-start space-x-3 cursor-pointer transition-all">
-                    <input type="checkbox" onchange="updateChecklistProgress()" class="checklist-item mt-1 w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400 bg-adobe-card border-adobe-border">
-                    <div>
-                        <span class="text-sm font-semibold text-white block">Sediakan Ruang Kosong (Copy Space)</span>
-                        <span class="text-xs text-slate-400">Menyediakan area latar bersih untuk penempatan teks meningkatkan potensi penjualan aset.</span>
-                    </div>
-                </label>
-
-                <label class="bg-adobe-panel border border-adobe-border hover:border-slate-600 rounded-xl p-4 flex items-start space-x-3 cursor-pointer transition-all">
-                    <input type="checkbox" onchange="updateChecklistProgress()" class="checklist-item mt-1 w-4 h-4 rounded text-cyan-500 focus:ring-cyan-400 bg-adobe-card border-adobe-border">
-                    <div>
-                        <span class="text-sm font-semibold text-white block">Pemeriksaan Artefak Visual</span>
-                        <span class="text-xs text-slate-400">Bebas dari cacat anatomi AI (seperti jari berlebih atau garis acak blur) pada skala zoom 100%.</span>
-                    </div>
-                </label>
-            </div>
-
-            <!-- Guidelines Quick Reference Card -->
-            <div class="bg-adobe-panel border border-adobe-border rounded-xl p-6 space-y-4">
-                <h3 class="text-sm font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-lightbulb text-amber-400"></i> Panduan Kategori Utama Adobe Stock
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                    <div class="bg-adobe-card p-3.5 rounded-lg border border-adobe-border">
-                        <div class="font-bold text-cyan-400 mb-1">Category 3: Business / Finance</div>
-                        <p class="text-slate-400">Untuk konsep kantor, analitik data AI, grafik pertumbuhan, ruang kerja modern, dan tim eksekutif.</p>
-                    </div>
-                    <div class="bg-adobe-card p-3.5 rounded-lg border border-adobe-border">
-                        <div class="font-bold text-cyan-400 mb-1">Category 4: Computer / IT</div>
-                        <p class="text-slate-400">Untuk server room, konsep kecerdasan buatan, cyber security, pemrograman, dan jaringan digital.</p>
-                    </div>
-                    <div class="bg-adobe-card p-3.5 rounded-lg border border-adobe-border">
-                        <div class="font-bold text-cyan-400 mb-1">Category 11: Environment / Nature</div>
-                        <p class="text-slate-400">Untuk energi terbarukan, panel surya, kincir angin, pemandangan alam, dan keberlanjutan (ESG).</p>
+                    <div class="bg-adobe-card p-4 rounded-lg border border-adobe-border">
+                        <strong class="text-cyan-400 block mb-1">3. Saat Upload di Website Adobe Stock</strong>
+                        - Jangan lupa centang <b>"Created using generative AI tools"</b>.<br>
+                        - Jika ditanya "Is there a recognizable person or property?", pilih <b>NO</b>.
                     </div>
                 </div>
             </div>
@@ -301,10 +226,10 @@
     <!-- Footer -->
     <footer class="bg-adobe-panel border-t border-adobe-border py-4 mt-auto">
         <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 flex flex-col sm:flex-row items-center justify-between gap-2">
-            <span>© 2026 Adobe Stock Contributor Tool - Client-Side Standalone Web App</span>
+            <span>© 2026 Adobe Stock Tool - Dioptimalkan untuk Karakter Kawaii & Clipart</span>
             <span class="flex items-center space-x-1">
                 <i class="fa-solid fa-shield-halved text-emerald-400"></i>
-                <span>Proses gambar 100% aman di browser tanpa server luar.</span>
+                <span>Aman & Gratis Selamanya</span>
             </span>
         </div>
     </footer>
@@ -314,32 +239,24 @@
         // Global State Store
         let imagesData = [];
 
-        // Category Codes List
+        // Category Codes List (Diutamakan kategori yang relevan untuk desain/clipart)
         const ADOBE_CATEGORIES = [
+            { id: 2, name: '2 - Arts / Graphic / Illustration' },
+            { id: 1, name: '1 - Animals (Karakter Hewan)' },
+            { id: 9, name: '9 - Food & Drink (Makanan/Minuman)' },
             { id: 3, name: '3 - Business / Finance' },
-            { id: 4, name: '4 - Computer / IT' },
-            { id: 7, name: '7 - Buildings / Architecture' },
             { id: 11, name: '11 - Nature / Environment' },
-            { id: 15, name: '15 - Science / Technology' },
-            { id: 1, name: '1 - Animals' },
-            { id: 2, name: '2 - Arts / Expressions' },
-            { id: 8, name: '8 - Education' },
-            { id: 9, name: '9 - Food' },
-            { id: 10, name: '10 - Healthcare / Medical' },
-            { id: 12, name: '12 - People' },
-            { id: 13, name: '13 - Religion / Culture' },
-            { id: 14, name: '14 - Social Issues' },
-            { id: 16, name: '16 - Sports / Leisure' },
-            { id: 17, name: '17 - Transportation' },
-            { id: 18, name: '18 - Travel / Culture' }
+            { id: 12, name: '12 - People / Character' },
+            { id: 8, name: '8 - Education / Kids' }
         ];
 
-        // AI Preset Keywords Templates
-        const KEYWORD_PRESETS = [
-            "vector, illustration, background, design, graphic, isolated, modern, concept, business, technology, artificial intelligence, data analytics, future, innovation, digital, 3d, dashboard, workflow, growth, chart, financial, corporate, flat, isometric, cyber, network, clean, space, copy space, banner, software, automation, professional, abstract, visual, colorful",
-            "environment, sustainable, green energy, solar panel, wind turbine, renewable, eco friendly, ecology, nature, clean technology, smart city, electric vehicle, power, climate change, conservation, recycle, plant, future, flat vector, illustration, isolated, white background, graphic, corporate, esg",
-            "mental health, mindfulness, self care, meditation, wellness, calm, balance, lifestyle, relaxation, psychology, peaceful, therapy, brain, emotional, soft background, flat vector, illustration, abstract, human, health, exercise, spirit, harmony"
-        ];
+        // DATABSE KEYWORDS YANG TERBUKTI LARIS DI ADOBE STOCK
+        const KEYWORDS_DB = {
+            kawaii: "kawaii, cute, cartoon, character, smile, happy, face, mascot, flat vector, illustration, isolated, white background, simple, clipart, adorable, sweet, funny, icon, sticker, graphic, design, kid, playful, drawing",
+            food: "food, delicious, meal, snack, sweet, fresh, healthy, tasty, restaurant, cafe, menu, diet, nutrition, ingredient, flavor, yummy, flat vector, illustration, isolated, white background",
+            business: "business, technology, future, innovation, digital, 3d, dashboard, workflow, growth, chart, financial, corporate, flat, isometric, cyber, network, clean, copy space, professional",
+            nature: "environment, sustainable, green energy, ecology, nature, clean, plant, leaf, future, flat vector, illustration, isolated, white background, graphic, eco friendly, organic"
+        };
 
         // DOM Initialization
         document.addEventListener('DOMContentLoaded', () => {
@@ -423,14 +340,19 @@
                             targetMP = (targetW * targetH) / 1000000;
                         }
 
-                        // Generate title from filename
-                        const cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
-                        const formattedTitle = cleanName.charAt(0).toUpperCase() + cleanName.slice(1) + " vector illustration concept";
+                        // Generate title from filename (default)
+                        let cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+                        // Remove numbers often generated by AI like "DALL-E 2023..."
+                        cleanName = cleanName.replace(/[0-9]/g, '').trim();
+                        if(cleanName.length < 3) cleanName = "Cute character object";
+                        
+                        const formattedTitle = cleanName.charAt(0).toUpperCase() + cleanName.slice(1) + ", cute kawaii cartoon character isolated on white background, 2d vector illustration clipart";
 
                         const imageObj = {
                             id: 'img_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
                             file: file,
                             name: file.name,
+                            exportFilename: file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9-_]/g, '_') + ".jpg",
                             src: e.target.result,
                             imgElement: img,
                             origW: origW,
@@ -442,9 +364,9 @@
                             targetMP: targetMP,
                             upscaledDataUrl: null,
                             isUpscaled: false,
-                            title: formattedTitle.slice(0, 70),
-                            category: 3, // Default Business
-                            keywords: ["vector", "illustration", "background", "design", "graphic", "isolated", "modern", "concept", "business", "technology"]
+                            title: formattedTitle.slice(0, 190), // Adobe allows up to 200 chars, but recommended is detailed
+                            category: 2, // Default Arts / Illustration
+                            keywords: []
                         };
 
                         imagesData.push(imageObj);
@@ -459,7 +381,7 @@
             showToast("Berhasil memuat gambar!", "success");
         }
 
-        // Render Grid of Images
+        // Render Grid of Images (Tab 1)
         function renderImageGrid() {
             const grid = document.getElementById('image-grid');
             const emptyState = document.getElementById('empty-state');
@@ -478,16 +400,16 @@
             grid.innerHTML = imagesData.map(item => {
                 const statusBadge = item.isReady || item.isUpscaled ?
                     `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
-                        <i class="fa-solid fa-circle-check"></i> Layak Upload (${(item.isUpscaled ? item.targetMP : item.origMP).toFixed(2)} MP)
+                        <i class="fa-solid fa-circle-check"></i> Siap (${(item.isUpscaled ? item.targetMP : item.origMP).toFixed(1)} MP)
                      </span>` :
                     `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
-                        <i class="fa-solid fa-triangle-exclamation"></i> < 4.0 MP (${item.origMP.toFixed(2)} MP)
+                        <i class="fa-solid fa-triangle-exclamation"></i> Terlalu Kecil
                      </span>`;
 
                 return `
                     <div class="bg-adobe-panel border border-adobe-border rounded-xl overflow-hidden flex flex-col justify-between hover:border-slate-600 transition-all">
                         <div class="p-4 space-y-3">
-                            <div class="relative h-44 bg-adobe-card rounded-lg overflow-hidden flex items-center justify-center border border-adobe-border">
+                            <div class="relative h-44 bg-white rounded-lg overflow-hidden flex items-center justify-center border border-slate-200 checkerboard-bg">
                                 <img src="${item.upscaledDataUrl || item.src}" class="max-h-full max-w-full object-contain">
                                 <span class="absolute top-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-mono px-2 py-0.5 rounded border border-white/10">
                                     ${item.isUpscaled ? item.targetW + 'x' + item.targetH : item.origW + 'x' + item.origH} px
@@ -495,34 +417,21 @@
                             </div>
 
                             <div>
-                                <h4 class="text-xs font-bold text-white truncate" title="${item.name}">${item.name}</h4>
                                 <div class="flex items-center justify-between mt-2">
+                                    <h4 class="text-xs font-bold text-white truncate w-3/5" title="${item.name}">${item.name}</h4>
                                     ${statusBadge}
                                 </div>
-                            </div>
-
-                            <div class="bg-adobe-card p-2.5 rounded-lg border border-adobe-border text-[11px] space-y-1">
-                                <div class="flex justify-between text-slate-400">
-                                    <span>Dimensi Asli:</span>
-                                    <span class="text-white font-mono">${item.origW} x ${item.origH} (${item.origMP.toFixed(2)} MP)</span>
-                                </div>
-                                ${!item.isReady ? `
-                                <div class="flex justify-between text-cyan-400 font-semibold">
-                                    <span>Target Upscale:</span>
-                                    <span class="font-mono">${item.targetW} x ${item.targetH} (${item.targetMP.toFixed(2)} MP)</span>
-                                </div>
-                                ` : ''}
                             </div>
                         </div>
 
                         <div class="p-4 bg-adobe-card/50 border-t border-adobe-border flex items-center justify-between gap-2">
                             ${!item.isReady && !item.isUpscaled ? `
                                 <button onclick="upscaleSingleImage('${item.id}')" class="flex-1 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs rounded-lg transition-all flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Auto-Upscale
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i> Auto-Upscale (Jadi 4MP)
                                 </button>
                             ` : `
-                                <button onclick="downloadImage('${item.id}')" class="flex-1 py-1.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-xs rounded-lg transition-all flex items-center justify-center gap-1.5">
-                                    <i class="fa-solid fa-download"></i> Unduh JPG
+                                <button onclick="downloadImage('${item.id}')" class="flex-1 py-1.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold text-xs rounded-lg transition-all flex items-center justify-center gap-1.5 border border-slate-500">
+                                    <i class="fa-solid fa-download"></i> Unduh JPG (Siap Upload)
                                 </button>
                             `}
                             <button onclick="deleteImage('${item.id}')" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-all" title="Hapus Gambar">
@@ -548,13 +457,13 @@
             ctx.imageSmoothingQuality = 'high';
             ctx.drawImage(item.imgElement, 0, 0, item.targetW, item.targetH);
 
-            item.upscaledDataUrl = canvas.toDataURL('image/jpeg', 0.95);
+            item.upscaledDataUrl = canvas.toDataURL('image/jpeg', 1.0); // Kualitas maksimum untuk Stock
             item.isUpscaled = true;
             item.isReady = true;
 
             renderImageGrid();
             updateStats();
-            showToast(`Gambar ${item.name} berhasil di-upscale!`, "success");
+            showToast(`Berhasil diperbesar!`, "success");
         }
 
         // Upscale All Images
@@ -567,21 +476,19 @@
                 }
             });
             if (count > 0) {
-                showToast(`${count} gambar berhasil di-upscale masal!`, "success");
+                showToast(`${count} gambar berhasil diperbesar!`, "success");
             } else {
-                showToast("Semua gambar sudah memenuhi kriteria 4 MP.", "info");
+                showToast("Semua gambar sudah cukup besar.", "info");
             }
         }
 
-        // Download Image menggunakan Fetch Blob
+        // Download Image 
         function downloadImage(id) {
             const item = imagesData.find(img => img.id === id);
             if (!item) return;
-
-            showToast("Memproses unduhan...", "info");
             
             const dataUrl = item.upscaledDataUrl || item.src;
-            const filename = item.name.replace(/\.[^/.]+$/, "") + "_adobestock_4mp.jpg";
+            const filename = item.exportFilename;
 
             fetch(dataUrl)
                 .then(res => res.blob())
@@ -594,11 +501,7 @@
                     link.click();
                     document.body.removeChild(link);
                     window.URL.revokeObjectURL(blobUrl);
-                    showToast("Unduhan berhasil!", "success");
-                })
-                .catch(err => {
-                    console.error("Download Error:", err);
-                    showToast("Gagal mengunduh gambar.", "error");
+                    showToast("Gambar diunduh!", "success");
                 });
         }
 
@@ -607,7 +510,6 @@
             imagesData = imagesData.filter(img => img.id !== id);
             renderImageGrid();
             updateStats();
-            showToast("Gambar dihapus.", "info");
         }
 
         // Clear All
@@ -615,7 +517,6 @@
             imagesData = [];
             renderImageGrid();
             updateStats();
-            showToast("Semua gambar telah dibersihkan.", "info");
         }
 
         // Update Header Stats
@@ -651,25 +552,20 @@
                 ).join('');
 
                 return `
-                    <div class="bg-adobe-panel border border-adobe-border rounded-xl p-5 space-y-4">
-                        <div class="flex items-start gap-4">
-                            <div class="w-20 h-20 bg-adobe-card rounded-lg overflow-hidden border border-adobe-border flex-shrink-0 flex items-center justify-center">
+                    <div class="bg-adobe-panel border border-adobe-border rounded-xl p-4 sm:p-5 space-y-4">
+                        <div class="flex flex-col sm:flex-row items-start gap-4">
+                            <div class="w-full sm:w-24 h-32 sm:h-24 bg-white rounded-lg overflow-hidden border border-slate-200 flex-shrink-0 flex items-center justify-center">
                                 <img src="${item.upscaledDataUrl || item.src}" class="max-h-full max-w-full object-contain">
                             </div>
 
-                            <div class="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div class="md:col-span-2 space-y-1">
-                                    <div class="flex justify-between items-center">
-                                        <label class="text-xs font-semibold text-slate-300">Judul / Title Adobe Stock</label>
-                                        <span class="text-[10px] ${item.title.length > 70 ? 'text-rose-400 font-bold' : 'text-slate-400'}">
-                                            ${item.title.length} / 70 karakter (Ideal < 70)
-                                        </span>
-                                    </div>
-                                    <input type="text" value="${item.title}" oninput="updateTitle('${item.id}', this.value)" class="w-full bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-3 py-2 text-xs text-white outline-none">
+                            <div class="flex-1 w-full space-y-3">
+                                <div>
+                                    <label class="text-xs font-semibold text-cyan-400 block mb-1">Judul / Title (Inggris)</label>
+                                    <textarea oninput="updateTitle('${item.id}', this.value)" class="w-full bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-3 py-2 text-xs text-white outline-none resize-none h-16">${item.title}</textarea>
                                 </div>
 
-                                <div class="space-y-1">
-                                    <label class="text-xs font-semibold text-slate-300">Kategori</label>
+                                <div>
+                                    <label class="text-xs font-semibold text-slate-300 block mb-1">Kategori Adobe Stock</label>
                                     <select onchange="updateCategory('${item.id}', this.value)" class="w-full bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-3 py-2 text-xs text-white outline-none">
                                         ${categoryOptions}
                                     </select>
@@ -678,32 +574,39 @@
                         </div>
 
                         <!-- Keywords Section -->
-                        <div class="space-y-2 border-t border-adobe-border/60 pt-3">
-                            <div class="flex items-center justify-between">
-                                <label class="text-xs font-semibold text-slate-300 flex items-center gap-2">
-                                    <span>Kata Kunci / Keywords</span>
-                                    <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
-                                        ${item.keywords.length} Keyword
+                        <div class="space-y-3 border-t border-adobe-border/60 pt-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                                <div>
+                                    <label class="text-xs font-semibold text-slate-300 block mb-1">Generate Kata Kunci SEO Otomatis</label>
+                                    <div class="flex flex-wrap gap-2">
+                                        <button onclick="generateKeywordsWithAI('${item.id}')" id="btn-ai-${item.id}" class="text-xs font-bold text-white bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 px-3 py-1.5 rounded-lg shadow-lg transition-all flex items-center gap-1.5 border border-purple-500/50">
+                                            <i class="fa-solid fa-wand-magic-sparkles"></i> Auto AI (Sesuai Gambar)
+                                        </button>
+                                        <button onclick="applyPreset('${item.id}', 'kawaii')" class="text-xs font-bold text-slate-900 bg-gradient-to-r from-yellow-300 to-amber-400 hover:from-yellow-200 hover:to-amber-300 px-3 py-1.5 rounded-lg shadow-lg transition-all">
+                                            😊 Preset Kawaii/Lucu
+                                        </button>
+                                        <button onclick="applyPreset('${item.id}', 'food')" class="text-xs font-bold text-slate-900 bg-gradient-to-r from-orange-300 to-rose-400 hover:from-orange-200 hover:to-rose-300 px-3 py-1.5 rounded-lg shadow-lg transition-all">
+                                            🍔 Preset Makanan
+                                        </button>
+                                        <button onclick="applyPreset('${item.id}', 'nature')" class="text-xs font-bold text-slate-900 bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-300 hover:to-teal-400 px-3 py-1.5 rounded-lg shadow-lg transition-all">
+                                            🌿 Preset Alam
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded border border-cyan-500/20 font-mono">
+                                        Total: ${item.keywords.length} Kata
                                     </span>
-                                </label>
-
-                                <div class="flex items-center space-x-2">
-                                    <button onclick="applyAIPresetKeywords('${item.id}')" class="text-[11px] text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 px-2.5 py-1 rounded border border-cyan-500/20 transition-all">
-                                        <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Preset Keyword
-                                    </button>
-                                    <button onclick="copyKeywords('${item.id}')" class="text-[11px] text-slate-300 hover:text-white bg-adobe-card px-2.5 py-1 rounded border border-adobe-border transition-all">
-                                        <i class="fa-regular fa-copy mr-1"></i> Salin Keyword
-                                    </button>
                                 </div>
                             </div>
 
                             <div class="flex flex-wrap gap-1.5 bg-adobe-card p-3 rounded-lg border border-adobe-border min-h-[60px]">
-                                ${keywordChips}
+                                ${item.keywords.length === 0 ? '<span class="text-xs text-slate-500 italic">Belum ada kata kunci. Klik tombol preset di atas!</span>' : keywordChips}
                             </div>
 
                             <div class="flex gap-2">
-                                <input type="text" id="input-kw-${item.id}" placeholder="Tambah keyword baru (pisahkan dengan koma)..." onkeydown="handleKeywordInput(event, '${item.id}')" class="flex-1 bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-3 py-1.5 text-xs text-white outline-none">
-                                <button onclick="addManualKeyword('${item.id}')" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold rounded-lg">
+                                <input type="text" id="input-kw-${item.id}" placeholder="Tambah kata bahasa inggris manual (pisahkan koma)..." onkeydown="handleKeywordInput(event, '${item.id}')" class="flex-1 bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-3 py-2 text-xs text-white outline-none">
+                                <button onclick="addManualKeyword('${item.id}')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white text-xs font-semibold rounded-lg border border-slate-500">
                                     Tambah
                                 </button>
                             </div>
@@ -713,11 +616,9 @@
             }).join('');
         }
 
-        // Title & Category Handlers
         function updateTitle(id, val) {
             const item = imagesData.find(img => img.id === id);
             if (item) item.title = val;
-            renderMetadataList();
         }
 
         function updateCategory(id, val) {
@@ -725,7 +626,6 @@
             if (item) item.category = parseInt(val);
         }
 
-        // Keywords Handlers
         function removeKeyword(id, kw) {
             const item = imagesData.find(img => img.id === id);
             if (item) {
@@ -757,84 +657,140 @@
             }
         }
 
-        function applyAIPresetKeywords(id) {
+        // Fetch wrapper with exponential backoff for AI rate limits
+        async function fetchWithRetry(url, options, maxRetries = 3) {
+            let delay = 1000;
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.status === 429) {
+                        throw new Error("Throttled");
+                    }
+                    return response;
+                } catch (err) {
+                    if (i === maxRetries - 1) throw err;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
+        }
+
+        // GENERATE KEYWORDS WITH GEMINI AI VISION
+        async function generateKeywordsWithAI(id) {
             const item = imagesData.find(img => img.id === id);
-            if (item) {
-                const randomPreset = KEYWORD_PRESETS[Math.floor(Math.random() * KEYWORD_PRESETS.length)];
-                const kwArray = randomPreset.split(',').map(s => s.trim().toLowerCase());
+            if (!item) return;
+
+            const btn = document.getElementById(`btn-ai-${id}`);
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> AI Menganalisa...`;
+            btn.disabled = true;
+
+            showToast("AI Vision sedang membaca isi gambar Anda...", "info");
+
+            try {
+                // Siapkan data gambar
+                const dataUrl = item.upscaledDataUrl || item.src;
+                const mimeType = dataUrl.substring(5, dataUrl.indexOf(';'));
+                const base64Data = dataUrl.split(',')[1];
+
+                const prompt = "Act as an expert microstock contributor. Analyze this image and provide exactly 35 highly relevant, descriptive SEO keywords for Adobe Stock. Include words describing the style (e.g., flat vector, realistic), main subjects, concepts, and colors. Output ONLY a comma-separated list of keywords. No other text.";
+
+                const payload = {
+                    contents: [
+                        {
+                            role: "user",
+                            parts: [
+                                { text: prompt },
+                                {
+                                    inlineData: {
+                                        mimeType: mimeType,
+                                        data: base64Data
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                };
+
+                const apiKey = ""; // API Key otomatis ditangani oleh environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+                const response = await fetchWithRetry(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error(`API Error: ${response.status}`);
+
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0 && result.candidates[0].content) {
+                    let aiText = result.candidates[0].content.parts[0].text;
+                    // Bersihkan format teks
+                    aiText = aiText.replace(/\n/g, '').replace(/\.$/, '').toLowerCase();
+                    
+                    const kwArray = aiText.split(',').map(s => s.trim()).filter(s => s.length > 0);
+                    
+                    // Gabungkan dengan keyword yang sudah ada tanpa duplikat
+                    item.keywords = Array.from(new Set([...item.keywords, ...kwArray]));
+                    
+                    showToast("Luar biasa! AI berhasil merumuskan kata kunci.", "success");
+                    renderMetadataList(); // Otomatis mengembalikan status tombol
+                } else {
+                    throw new Error("Respons AI tidak valid");
+                }
+            } catch (error) {
+                console.error("AI Gen Error:", error);
+                showToast("Koneksi AI sedang sibuk. Silakan coba lagi.", "error");
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
+        }
+
+        // Apply specific preset based on user choice
+        function applyPreset(id, type) {
+            const item = imagesData.find(img => img.id === id);
+            if (item && KEYWORDS_DB[type]) {
+                const kwArray = KEYWORDS_DB[type].split(',').map(s => s.trim().toLowerCase());
+                // Combine and remove duplicates
                 item.keywords = Array.from(new Set([...item.keywords, ...kwArray]));
                 renderMetadataList();
-                showToast("Preset kata kunci berhasil diterapkan!", "success");
+                showToast(`Kata Kunci Tema ditambahkan!`, "success");
             }
         }
 
-        function autoFillAllMetadata() {
-            imagesData.forEach(item => {
-                applyAIPresetKeywords(item.id);
-            });
-            showToast("Semua metadata diisi rekomendasi AI!", "success");
-        }
-
-        function copyKeywords(id) {
-            const item = imagesData.find(img => img.id === id);
-            if (item) {
-                const kwString = item.keywords.join(', ');
-                
-                // Fallback copying method
-                const tempInput = document.createElement('textarea');
-                tempInput.value = kwString;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-
-                showToast("Kata kunci disalin ke clipboard!", "info");
-            }
-        }
-
-        // EXPORT TO ADOBE STOCK CSV menggunakan Blob
+        // EXPORT TO ADOBE STOCK CSV
         function exportToCSV() {
             if (imagesData.length === 0) {
-                showToast("Tidak ada gambar untuk di-export!", "error");
+                showToast("Tidak ada data gambar!", "error");
                 return;
             }
 
-            const headers = ["Filename", "Title", "Keywords", "Category"];
+            const headers = ["Filename", "Title", "Keywords", "Category", "Releases"];
             const rows = imagesData.map(item => {
-                const filename = item.name.replace(/\.[^/.]+$/, "") + "_adobestock_4mp.jpg";
+                const filename = item.exportFilename; 
                 const title = `"${item.title.replace(/"/g, '""')}"`;
                 const keywords = `"${item.keywords.join(', ').replace(/"/g, '""')}"`;
                 const category = item.category;
 
-                return [filename, title, keywords, category].join(',');
+                return [filename, title, keywords, category, ""].join(',');
             });
 
             const csvContent = [headers.join(','), ...rows].join('\n');
             
-            // Menggunakan Blob agar aman dari limitasi URL length di browser
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const blobUrl = URL.createObjectURL(blob);
             
             const link = document.createElement("a");
             link.setAttribute("href", blobUrl);
-            link.setAttribute("download", "adobestock_upload_metadata.csv");
+            link.setAttribute("download", "Metadata_AdobeStock.csv");
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
             URL.revokeObjectURL(blobUrl);
 
-            showToast("File CSV berhasil diunduh!", "success");
-        }
-
-        // CHECKLIST PROGRESS TRACKER
-        function updateChecklistProgress() {
-            const checkboxes = document.querySelectorAll('.checklist-item');
-            const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
-            const total = checkboxes.length;
-            const percentage = Math.round((checkedCount / total) * 100);
-
-            document.getElementById('checklist-progress-text').innerText = `${checkedCount} / ${total} Terpenuhi`;
-            document.getElementById('checklist-bar').style.width = `${percentage}%`;
+            showToast("File CSV Berhasil Diunduh!", "success");
         }
 
         // CUSTOM TOAST NOTIFICATION
