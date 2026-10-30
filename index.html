@@ -9,7 +9,7 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -20,10 +20,10 @@
                     },
                     colors: {
                         adobe: {
-                            dark: '#0e0f12',
-                            panel: '#181a20',
-                            card: '#22252e',
-                            border: '#323644',
+                            dark: '#07080a',
+                            panel: 'rgba(18, 20, 28, 0.75)',
+                            card: 'rgba(28, 32, 44, 0.65)',
+                            border: 'rgba(255, 255, 255, 0.08)',
                             accent: '#ff0000',
                             cyan: '#00f2fe',
                             purple: '#4facfe',
@@ -35,60 +35,111 @@
     </script>
     <style>
         body {
-            background-color: #0e0f12;
-            color: #e2e8f0;
+            background-color: #07080a;
+            color: #f1f5f9;
             font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        /* Background Glowing Blobs for Premium Glass Effect */
+        .glow-bg {
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(0, 242, 254, 0.12) 0%, rgba(79, 172, 254, 0.04) 60%, transparent 100%);
+            top: -100px;
+            left: -100px;
+            z-index: -1;
+            filter: blur(50px);
+            animation: floatBlob 12s ease-in-out infinite alternate;
+        }
+        .glow-bg-2 {
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.03) 60%, transparent 100%);
+            bottom: -100px;
+            right: -100px;
+            z-index: -1;
+            filter: blur(60px);
+            animation: floatBlob 15s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes floatBlob {
+            0% { transform: translateY(0px) scale(1); }
+            100% { transform: translateY(40px) scale(1.1); }
+        }
+        /* Glassmorphism Classes */
+        .glass-panel {
+            background: rgba(18, 20, 28, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .glass-card {
+            background: rgba(28, 32, 44, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 242, 254, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 242, 254, 0.1);
         }
         /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #181a20;
+            background: #07080a;
         }
         ::-webkit-scrollbar-thumb {
-            background: #323644;
-            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #4b5165;
+            background: rgba(0, 242, 254, 0.5);
         }
         .gradient-text {
-            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #a855f7 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .dropzone-active {
             border-color: #00f2fe !important;
-            background-color: rgba(0, 242, 254, 0.05) !important;
+            background-color: rgba(0, 242, 254, 0.08) !important;
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col relative selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- Glowing Background Lights -->
+    <div class="glow-bg"></div>
+    <div class="glow-bg-2"></div>
 
     <!-- Header / Navbar -->
-    <header class="bg-adobe-panel border-b border-adobe-border sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                    <i class="fa-solid fa-layer-group text-slate-900 font-bold text-xl"></i>
+    <header class="glass-panel border-b border-white/10 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3.5">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-400 via-blue-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/25">
+                    <i class="fa-solid fa-layer-group text-slate-950 font-extrabold text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
-                        Adobe Stock <span class="gradient-text font-extrabold">Contributor Tool</span>
+                    <h1 class="text-lg font-extrabold tracking-tight text-white flex items-center gap-2">
+                        Adobe Stock <span class="gradient-text">Contributor Tool</span>
                     </h1>
-                    <p class="text-xs text-slate-400">Auto Upscaler, Metadata Kawaii & CSV Exporter v4</p>
+                    <p class="text-[11px] text-slate-400 font-medium tracking-wide">AI Vision SEO & Automated Workflow v5</p>
                 </div>
             </div>
 
             <!-- Stats Badge -->
-            <div class="hidden md:flex items-center space-x-4 text-xs font-medium">
-                <div class="bg-adobe-card px-3 py-1.5 rounded-lg border border-adobe-border flex items-center space-x-2">
+            <div class="hidden md:flex items-center space-x-3 text-xs font-semibold">
+                <div class="glass-card px-3.5 py-2 rounded-xl flex items-center space-x-2">
                     <span class="text-slate-400">Total File:</span>
                     <span id="stat-total" class="text-cyan-400 font-bold">0</span>
                 </div>
-                <div class="bg-adobe-card px-3 py-1.5 rounded-lg border border-adobe-border flex items-center space-x-2">
+                <div class="glass-card px-3.5 py-2 rounded-xl flex items-center space-x-2">
                     <span class="text-slate-400">Siap Upload:</span>
                     <span id="stat-ready" class="text-emerald-400 font-bold">0</span>
                 </div>
@@ -97,19 +148,19 @@
     </header>
 
     <!-- Navigation Tabs -->
-    <div class="bg-adobe-panel/80 backdrop-blur-md border-b border-adobe-border sticky top-16 z-40">
+    <div class="glass-panel border-b border-white/10 sticky top-20 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="flex space-x-6 overflow-x-auto py-2" id="nav-tabs">
-                <button onclick="switchTab('tab-upscaler')" id="btn-tab-upscaler" class="tab-btn active px-4 py-2.5 text-sm font-semibold rounded-lg flex items-center space-x-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 border border-cyan-500/30 transition-all whitespace-nowrap">
-                    <i class="fa-solid fa-expand"></i>
+            <nav class="flex space-x-4 overflow-x-auto py-3" id="nav-tabs">
+                <button onclick="switchTab('tab-upscaler')" id="btn-tab-upscaler" class="tab-btn active px-5 py-2.5 text-xs font-bold rounded-xl flex items-center space-x-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 border border-cyan-500/40 shadow-sm transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-expand text-sm"></i>
                     <span>1. Gambar & Upscale</span>
                 </button>
-                <button onclick="switchTab('tab-metadata')" id="btn-tab-metadata" class="tab-btn px-4 py-2.5 text-sm font-semibold rounded-lg flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-adobe-card transition-all whitespace-nowrap">
-                    <i class="fa-solid fa-tags"></i>
-                    <span>2. Judul & Kata Kunci</span>
+                <button onclick="switchTab('tab-metadata')" id="btn-tab-metadata" class="tab-btn px-5 py-2.5 text-xs font-bold rounded-xl flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-tags text-sm"></i>
+                    <span>2. Judul & Kata Kunci AI</span>
                 </button>
-                <button onclick="switchTab('tab-checklist')" id="btn-tab-checklist" class="tab-btn px-4 py-2.5 text-sm font-semibold rounded-lg flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-adobe-card transition-all whitespace-nowrap">
-                    <i class="fa-solid fa-key"></i>
+                <button onclick="switchTab('tab-checklist')" id="btn-tab-checklist" class="tab-btn px-5 py-2.5 text-xs font-bold rounded-xl flex items-center space-x-2 text-slate-400 hover:text-white hover:bg-white/5 transition-all whitespace-nowrap">
+                    <i class="fa-solid fa-key text-sm"></i>
                     <span>3. Pengaturan API Key</span>
                 </button>
             </nav>
@@ -117,93 +168,119 @@
     </div>
 
     <!-- Main Content Container -->
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         <!-- Toast Notification Container -->
-        <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+        <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
         <!-- TAB 1: UPSCALER -->
         <section id="tab-upscaler" class="tab-content block space-y-6">
-            <div id="dropzone" class="border-2 border-dashed border-adobe-border hover:border-cyan-500/50 rounded-2xl bg-adobe-panel p-8 text-center transition-all cursor-pointer relative overflow-hidden group">
+            <div id="dropzone" class="border-2 border-dashed border-white/15 hover:border-cyan-400/60 rounded-3xl glass-panel p-10 text-center transition-all cursor-pointer relative overflow-hidden group">
                 <input type="file" id="file-input" multiple accept="image/jpeg, image/png, image/webp" class="hidden" onchange="handleFileSelect(event)">
-                <div class="flex flex-col items-center justify-center space-y-3 pointer-events-none">
-                    <div class="w-16 h-16 rounded-full bg-adobe-card border border-adobe-border flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <i class="fa-solid fa-cloud-arrow-up text-2xl text-cyan-400"></i>
+                <div class="flex flex-col items-center justify-center space-y-3.5 pointer-events-none">
+                    <div class="w-18 h-18 w-20 h-20 rounded-2xl glass-card flex items-center justify-center group-hover:scale-110 group-hover:border-cyan-400/40 transition-all shadow-xl shadow-cyan-500/10">
+                        <i class="fa-solid fa-cloud-arrow-up text-3xl text-cyan-400"></i>
                     </div>
                     <div>
-                        <p class="text-base font-semibold text-white">Tarik & Lepas Gambar di Sini, atau <span class="text-cyan-400 underline">Pilih File</span></p>
+                        <p class="text-base font-bold text-white">Tarik & Lepas Gambar di Sini, atau <span class="text-cyan-400 underline decoration-cyan-400/50 underline-offset-4">Pilih File</span></p>
+                        <p class="text-xs text-slate-400 mt-1">Mendukung format PNG, JPG, dan WEBP (Proses otomatis di browser)</p>
                     </div>
                 </div>
             </div>
 
-            <div id="action-bar" class="hidden bg-adobe-panel border border-adobe-border rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+            <div id="action-bar" class="hidden glass-panel rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center space-x-3">
-                    <button onclick="upscaleAllImages()" class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-900 font-bold text-xs rounded-lg shadow-lg flex items-center space-x-2 transition-all">
+                    <button onclick="upscaleAllImages()" class="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg shadow-cyan-500/20 flex items-center space-x-2 transition-all">
                         <i class="fa-solid fa-bolt"></i><span>Auto-Upscale Semua</span>
                     </button>
-                    <button onclick="clearAllImages()" class="px-3 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-semibold rounded-lg border border-rose-500/30 transition-all">
-                        <i class="fa-solid fa-trash-can"></i> Hapus
+                    <button onclick="clearAllImages()" class="px-4 py-2.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 text-xs font-bold rounded-xl border border-rose-500/25 transition-all">
+                        <i class="fa-solid fa-trash-can mr-1.5"></i> Hapus Semua
                     </button>
                 </div>
             </div>
 
             <div id="image-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
-            <div id="empty-state" class="text-center py-16 border border-adobe-border/50 rounded-2xl bg-adobe-panel/30">
-                <i class="fa-regular fa-images text-4xl text-slate-600 mb-3"></i>
-                <h3 class="text-slate-300 font-semibold text-base">Belum Ada Gambar</h3>
+            <div id="empty-state" class="text-center py-20 border border-white/10 rounded-3xl glass-panel">
+                <div class="w-16 h-16 rounded-2xl glass-card flex items-center justify-center mx-auto mb-4 text-slate-500">
+                    <i class="fa-regular fa-images text-2xl"></i>
+                </div>
+                <h3 class="text-slate-200 font-bold text-base">Belum Ada Gambar Diunggah</h3>
+                <p class="text-slate-400 text-xs mt-1">Silakan pilih atau tarik gambar Anda ke area di atas.</p>
             </div>
         </section>
 
         <!-- TAB 2: METADATA -->
         <section id="tab-metadata" class="tab-content hidden space-y-6">
-            <div class="bg-adobe-panel border border-adobe-border rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="glass-panel rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                    <h2 class="text-base font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-tags text-cyan-400"></i> Pengisian Metadata & SEO
+                    <h2 class="text-base font-extrabold text-white flex items-center gap-2.5">
+                        <i class="fa-solid fa-tags text-cyan-400"></i> Metadata & Keyword Optimizer
                     </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Kelola judul dan hasil AI sebelum diunduh sebagai file CSV Adobe Stock.</p>
                 </div>
-                <button onclick="exportToCSV()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm rounded-lg shadow-lg flex items-center space-x-2 transition-all w-full sm:w-auto justify-center">
-                    <i class="fa-solid fa-download"></i><span>Download File CSV</span>
+                <button onclick="exportToCSV()" class="px-6 py-3 bg-gradient-to-r from-emerald-400 to-teal-500 hover:from-emerald-300 hover:to-teal-400 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg shadow-emerald-500/20 flex items-center space-x-2 transition-all w-full sm:w-auto justify-center">
+                    <i class="fa-solid fa-download text-sm"></i><span>Download File CSV (.csv)</span>
                 </button>
             </div>
             <div id="metadata-list" class="space-y-6"></div>
-            <div id="empty-metadata-state" class="text-center py-16 border border-adobe-border/50 rounded-2xl bg-adobe-panel/30">
-                <i class="fa-solid fa-tags text-4xl text-slate-600 mb-3"></i>
-                <h3 class="text-slate-300 font-semibold text-base">Daftar Gambar Kosong</h3>
+            <div id="empty-metadata-state" class="text-center py-20 border border-white/10 rounded-3xl glass-panel">
+                <div class="w-16 h-16 rounded-2xl glass-card flex items-center justify-center mx-auto mb-4 text-slate-500">
+                    <i class="fa-solid fa-tags text-2xl"></i>
+                </div>
+                <h3 class="text-slate-200 font-bold text-base">Daftar Metadata Kosong</h3>
+                <p class="text-slate-400 text-xs mt-1">Unggah gambar terlebih dahulu di Tab 1.</p>
             </div>
         </section>
 
         <!-- TAB 3: API SETTINGS -->
         <section id="tab-checklist" class="tab-content hidden space-y-6">
-            <div class="bg-adobe-panel border border-adobe-border rounded-xl p-6">
-                <h2 class="text-base font-bold text-white flex items-center gap-2 mb-4">
-                    <i class="fa-solid fa-key text-purple-400"></i> Pengaturan API Key Gemini AI
-                </h2>
-                <div class="space-y-4">
-                    <div class="bg-adobe-card p-4 rounded-lg border border-adobe-border text-sm text-slate-300">
-                        <p class="mb-3">Agar fitur <b>"Auto AI (Sesuai Gambar)"</b> berfungsi, Anda memerlukan API Key gratis dari Google.</p>
-                        <ol class="list-decimal ml-4 space-y-1 text-cyan-400">
-                            <li>Buka website <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline font-bold text-cyan-300">Google AI Studio (Klik di sini)</a>.</li>
-                            <li>Login dengan akun Google Anda.</li>
-                            <li>Klik tombol biru <b>"Create API Key"</b>.</li>
-                            <li>Copy (Salin) teks panjang yang muncul.</li>
-                            <li>Paste (Tempel) di kotak bawah ini, lalu klik Simpan.</li>
-                        </ol>
+            <div class="glass-panel rounded-3xl p-8 max-w-3xl mx-auto space-y-6">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl font-bold">
+                        <i class="fa-solid fa-key"></i>
                     </div>
-                    
-                    <div class="flex gap-2">
-                        <input type="password" id="api-key-input" placeholder="Paste API Key Anda di sini..." class="flex-1 bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-4 py-2 text-sm text-white outline-none">
-                        <button onclick="saveApiKey()" class="px-5 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-lg transition-all">
-                            Simpan
+                    <div>
+                        <h2 class="text-lg font-extrabold text-white">Konfigurasi API Key Gemini AI</h2>
+                        <p class="text-xs text-slate-400">Agar fitur Auto AI Vision dapat melihat dan mengenali gambar Anda secara otomatis.</p>
+                    </div>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl text-xs text-slate-300 space-y-3 leading-relaxed">
+                    <p>Ikuti langkah mudah berikut untuk mendapatkan kunci gratis:</p>
+                    <ol class="list-decimal ml-4 space-y-2 text-cyan-400 font-medium">
+                        <li>Buka website resmi <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline font-bold text-cyan-300">Google AI Studio (Klik di Sini)</a>.</li>
+                        <li>Login menggunakan akun Google pribadi Anda.</li>
+                        <li>Klik tombol biru bertuliskan <b>"Create API Key"</b>.</li>
+                        <li>Salin kode unik yang dihasilkan lalu tempel di kolom bawah ini.</li>
+                    </ol>
+                </div>
+                
+                <div class="space-y-3">
+                    <label class="text-xs font-bold text-slate-300 block">API Key Anda:</label>
+                    <div class="flex gap-3">
+                        <input type="password" id="api-key-input" placeholder="Paste API Key (contoh: AIzaSy...)" class="flex-1 glass-card border border-white/10 focus:border-cyan-400 rounded-xl px-4 py-3 text-xs text-white outline-none transition-all">
+                        <button onclick="saveApiKey()" class="px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-lg shadow-purple-500/20 transition-all">
+                            Simpan Kunci
                         </button>
                     </div>
-                    <p id="api-status" class="text-xs text-rose-400 hidden"><i class="fa-solid fa-circle-xmark"></i> API Key belum tersimpan.</p>
+                    <p id="api-status" class="text-xs font-semibold text-rose-400 pt-1"><i class="fa-solid fa-circle-xmark mr-1"></i> API Key belum tersimpan.</p>
                 </div>
             </div>
         </section>
 
     </main>
+
+    <!-- Footer -->
+    <footer class="glass-panel border-t border-white/10 py-5 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <span class="font-medium">© 2026 Adobe Stock Contributor Tool - High Performance Web App</span>
+            <span class="flex items-center space-x-1.5 text-emerald-400 font-semibold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>100% Aman & Berjalan di Browser</span>
+            </span>
+        </div>
+    </footer>
 
     <!-- JAVASCRIPT APP LOGIC -->
     <script>
@@ -238,11 +315,11 @@
             
             if (savedKey) {
                 inputField.value = savedKey;
-                statusText.innerHTML = `<i class="fa-solid fa-circle-check"></i> API Key tersimpan aman di browser Anda.`;
-                statusText.className = "text-xs text-emerald-400 block";
+                statusText.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> API Key tersimpan aman di browser Anda.`;
+                statusText.className = "text-xs font-semibold text-emerald-400 pt-1 block";
             } else {
-                statusText.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> API Key belum tersimpan.`;
-                statusText.className = "text-xs text-rose-400 block";
+                statusText.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1"></i> API Key belum tersimpan.`;
+                statusText.className = "text-xs font-semibold text-rose-400 pt-1 block";
             }
         }
 
@@ -260,13 +337,13 @@
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-gradient-to-r', 'from-cyan-500/20', 'to-blue-500/20', 'text-cyan-400', 'border', 'border-cyan-500/30');
+                btn.classList.remove('bg-gradient-to-r', 'from-cyan-500/20', 'to-blue-500/20', 'text-cyan-400', 'border', 'border-cyan-500/40', 'shadow-sm');
                 btn.classList.add('text-slate-400');
             });
 
             document.getElementById(tabId).classList.remove('hidden');
             const activeBtn = document.getElementById(`btn-${tabId}`);
-            activeBtn.classList.add('bg-gradient-to-r', 'from-cyan-500/20', 'to-blue-500/20', 'text-cyan-400', 'border', 'border-cyan-500/30');
+            activeBtn.classList.add('bg-gradient-to-r', 'from-cyan-500/20', 'to-blue-500/20', 'text-cyan-400', 'border', 'border-cyan-500/40', 'shadow-sm');
             activeBtn.classList.remove('text-slate-400');
 
             if (tabId === 'tab-metadata') renderMetadataList();
@@ -373,27 +450,27 @@
 
             grid.innerHTML = imagesData.map(item => {
                 const statusBadge = item.isReady || item.isUpscaled ?
-                    `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-circle-check"></i> Siap</span>` :
-                    `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold px-2.5 py-1 rounded-full"><i class="fa-solid fa-triangle-exclamation"></i> Kecil</span>`;
+                    `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[11px] font-extrabold px-2.5 py-1 rounded-full"><i class="fa-solid fa-circle-check"></i> Siap</span>` :
+                    `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[11px] font-extrabold px-2.5 py-1 rounded-full"><i class="fa-solid fa-triangle-exclamation"></i> Kecil</span>`;
 
                 return `
-                    <div class="bg-adobe-panel border border-adobe-border rounded-xl overflow-hidden flex flex-col hover:border-slate-600 transition-all">
+                    <div class="glass-panel rounded-2xl overflow-hidden flex flex-col justify-between shadow-xl">
                         <div class="p-4 space-y-3">
-                            <div class="relative h-44 bg-white rounded-lg flex items-center justify-center border border-slate-200">
+                            <div class="relative h-48 bg-white/90 rounded-xl flex items-center justify-center border border-white/20 p-2 shadow-inner">
                                 <img src="${item.upscaledDataUrl || item.src}" class="max-h-full max-w-full object-contain">
                             </div>
-                            <div class="flex justify-between mt-2">
-                                <h4 class="text-xs font-bold text-white truncate w-3/5">${item.name}</h4>
+                            <div class="flex items-center justify-between">
+                                <h4 class="text-xs font-bold text-white truncate w-3/5" title="${item.name}">${item.name}</h4>
                                 ${statusBadge}
                             </div>
                         </div>
-                        <div class="p-4 bg-adobe-card/50 border-t border-adobe-border flex justify-between gap-2">
+                        <div class="p-4 bg-black/20 border-t border-white/10 flex items-center justify-between gap-2">
                             ${!item.isReady && !item.isUpscaled ? `
-                                <button onclick="upscaleSingleImage('${item.id}')" class="flex-1 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs rounded-lg transition-all">Auto-Upscale</button>
+                                <button onclick="upscaleSingleImage('${item.id}')" class="flex-1 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-extrabold text-xs rounded-xl shadow-md transition-all">Auto-Upscale</button>
                             ` : `
-                                <button onclick="downloadImage('${item.id}')" class="flex-1 py-1.5 bg-slate-700 text-white font-semibold text-xs rounded-lg border border-slate-500">Unduh JPG</button>
+                                <button onclick="downloadImage('${item.id}')" class="flex-1 py-2 glass-card text-white font-bold text-xs rounded-xl border border-white/20 hover:bg-white/10">Unduh JPG</button>
                             `}
-                            <button onclick="deleteImage('${item.id}')" class="p-1.5 text-slate-400 hover:text-rose-400 rounded-lg"><i class="fa-solid fa-trash-can"></i></button>
+                            <button onclick="deleteImage('${item.id}')" class="p-2 text-slate-400 hover:text-rose-400 rounded-xl hover:bg-rose-500/10 transition-all"><i class="fa-solid fa-trash-can text-sm"></i></button>
                         </div>
                     </div>
                 `;
@@ -411,6 +488,7 @@
             item.upscaledDataUrl = canvas.toDataURL('image/jpeg', 1.0);
             item.isUpscaled = true; item.isReady = true;
             renderImageGrid(); updateStats();
+            showToast(`Gambar berhasil diperbesar!`, "success");
         }
 
         function upscaleAllImages() {
@@ -428,6 +506,7 @@
                 link.href = blobUrl; link.download = item.exportFilename;
                 document.body.appendChild(link); link.click(); document.body.removeChild(link);
                 window.URL.revokeObjectURL(blobUrl);
+                showToast("Berhasil mengunduh JPG!", "success");
             });
         }
 
@@ -451,35 +530,35 @@
 
             container.innerHTML = imagesData.map(item => {
                 const catOpts = ADOBE_CATEGORIES.map(cat => `<option value="${cat.id}" ${item.category == cat.id ? 'selected' : ''}>${cat.name}</option>`).join('');
-                const kws = item.keywords.map(kw => `<span class="bg-slate-700 text-slate-200 text-xs px-2 py-1 rounded-md border border-slate-600 flex items-center gap-1">${kw} <i onclick="removeKeyword('${item.id}', '${kw}')" class="fa-solid fa-xmark text-slate-400 cursor-pointer"></i></span>`).join('');
+                const kws = item.keywords.map(kw => `<span class="glass-card text-slate-200 text-xs px-2.5 py-1 rounded-lg border border-white/10 flex items-center gap-1.5">${kw} <i onclick="removeKeyword('${item.id}', '${kw}')" class="fa-solid fa-xmark text-slate-400 hover:text-rose-400 cursor-pointer"></i></span>`).join('');
 
                 return `
-                    <div class="bg-adobe-panel border border-adobe-border rounded-xl p-4 sm:p-5 space-y-4">
+                    <div class="glass-panel rounded-2xl p-5 sm:p-6 space-y-4">
                         <div class="flex flex-col sm:flex-row items-start gap-4">
-                            <div class="w-full sm:w-24 h-32 sm:h-24 bg-white rounded-lg flex-shrink-0 flex items-center justify-center border border-slate-200">
+                            <div class="w-full sm:w-24 h-32 sm:h-24 bg-white/90 rounded-xl flex-shrink-0 flex items-center justify-center border border-white/20 p-2 shadow-inner">
                                 <img src="${item.upscaledDataUrl || item.src}" class="max-h-full max-w-full object-contain">
                             </div>
                             <div class="flex-1 w-full space-y-3">
                                 <div>
-                                    <label class="text-xs font-semibold text-cyan-400 block mb-1">Judul / Title (Inggris)</label>
-                                    <textarea oninput="updateTitle('${item.id}', this.value)" class="w-full bg-adobe-card border border-adobe-border focus:border-cyan-500 rounded-lg px-3 py-2 text-xs text-white resize-none h-16">${item.title}</textarea>
+                                    <label class="text-xs font-bold text-cyan-400 block mb-1.5">Judul / Title (Inggris)</label>
+                                    <textarea oninput="updateTitle('${item.id}', this.value)" class="w-full glass-card border border-white/10 focus:border-cyan-400 rounded-xl px-3.5 py-2.5 text-xs text-white resize-none h-16 outline-none transition-all">${item.title}</textarea>
                                 </div>
                                 <div>
-                                    <label class="text-xs font-semibold text-slate-300 block mb-1">Kategori Adobe Stock</label>
-                                    <select onchange="updateCategory('${item.id}', this.value)" class="w-full bg-adobe-card border border-adobe-border rounded-lg px-3 py-2 text-xs text-white">${catOpts}</select>
+                                    <label class="text-xs font-bold text-slate-300 block mb-1.5">Kategori Adobe Stock</label>
+                                    <select onchange="updateCategory('${item.id}', this.value)" class="w-full glass-card border border-white/10 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none">${catOpts}</select>
                                 </div>
                             </div>
                         </div>
-                        <div class="space-y-3 border-t border-adobe-border/60 pt-4">
+                        <div class="space-y-3 border-t border-white/10 pt-4">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                 <div class="flex flex-wrap gap-2">
-                                    <button onclick="generateKeywordsWithAI('${item.id}')" id="btn-ai-${item.id}" class="text-xs font-bold text-white bg-gradient-to-r from-purple-500 to-indigo-600 px-3 py-1.5 rounded-lg flex items-center gap-1.5"><i class="fa-solid fa-wand-magic-sparkles"></i> Auto AI Sesuai Gambar</button>
-                                    <button onclick="applyPreset('${item.id}', 'kawaii')" class="text-xs font-bold text-slate-900 bg-gradient-to-r from-yellow-300 to-amber-400 px-3 py-1.5 rounded-lg">😊 Preset Kawaii</button>
+                                    <button onclick="generateKeywordsWithAI('${item.id}')" id="btn-ai-${item.id}" class="text-xs font-extrabold text-white bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 px-4 py-2 rounded-xl flex items-center gap-2 shadow-lg shadow-purple-500/20 transition-all"><i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Auto AI Sesuai Gambar</button>
+                                    <button onclick="applyPreset('${item.id}', 'kawaii')" class="text-xs font-extrabold text-slate-950 bg-gradient-to-r from-yellow-300 to-amber-400 hover:from-yellow-200 hover:to-amber-300 px-4 py-2 rounded-xl shadow-md transition-all">😊 Preset Kawaii</button>
                                 </div>
-                                <span class="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-1 rounded border border-cyan-500/20 font-mono">Total: ${item.keywords.length}</span>
+                                <span class="text-[11px] text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-lg border border-cyan-500/20 font-mono font-bold">Total: ${item.keywords.length} Keyword</span>
                             </div>
-                            <div class="flex flex-wrap gap-1.5 bg-adobe-card p-3 rounded-lg border border-adobe-border min-h-[60px]">
-                                ${item.keywords.length === 0 ? '<span class="text-xs text-slate-500 italic">Klik tombol AI di atas!</span>' : kws}
+                            <div class="flex flex-wrap gap-1.5 glass-card p-3.5 rounded-xl border border-white/10 min-h-[70px]">
+                                ${item.keywords.length === 0 ? '<span class="text-xs text-slate-500 italic flex items-center gap-2"><i class="fa-solid fa-lightbulb"></i> Klik tombol "Auto AI Sesuai Gambar" di atas untuk mengisi otomatis!</span>' : kws}
                             </div>
                         </div>
                     </div>
@@ -499,7 +578,7 @@
             
             if (!apiKey || apiKey.trim() === '') {
                 switchTab('tab-checklist');
-                showToast("Silakan masukkan API Key Anda terlebih dahulu di sini.", "error");
+                showToast("Silakan masukkan API Key Anda terlebih dahulu.", "error");
                 return;
             }
 
@@ -512,9 +591,25 @@
             btn.disabled = true;
 
             try {
-                const dataUrl = item.upscaledDataUrl || item.src;
-                const mimeType = dataUrl.substring(5, dataUrl.indexOf(';'));
-                const base64Data = dataUrl.split(',')[1];
+                const MAX_AI_DIM = 512;
+                const aiCanvas = document.createElement('canvas');
+                let aiW = item.origW;
+                let aiH = item.origH;
+                
+                if (aiW > MAX_AI_DIM || aiH > MAX_AI_DIM) {
+                    const ratio = Math.min(MAX_AI_DIM / aiW, MAX_AI_DIM / aiH);
+                    aiW = Math.round(aiW * ratio);
+                    aiH = Math.round(aiH * ratio);
+                }
+                
+                aiCanvas.width = aiW;
+                aiCanvas.height = aiH;
+                const aiCtx = aiCanvas.getContext('2d');
+                aiCtx.drawImage(item.imgElement, 0, 0, aiW, aiH);
+                
+                const aiDataUrl = aiCanvas.toDataURL('image/jpeg', 0.6);
+                const mimeType = 'image/jpeg';
+                const base64Data = aiDataUrl.split(',')[1];
 
                 const prompt = "Act as an expert microstock contributor. Analyze this image and provide exactly 35 highly relevant, descriptive SEO keywords for Adobe Stock. Include words describing the style (e.g., flat vector, realistic), main subjects, concepts, and colors. Output ONLY a comma-separated list of keywords. No other text.";
 
@@ -525,13 +620,11 @@
                 const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
                 const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                
-                if (response.status === 400 || response.status === 403) {
-                    throw new Error("API Key salah atau tidak valid.");
-                }
-                if (!response.ok) throw new Error(`Server Sibuk (${response.status})`);
-
                 const result = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(result.error?.message || `Server Sibuk (${response.status})`);
+                }
                 
                 if (result.candidates && result.candidates[0].content) {
                     let aiText = result.candidates[0].content.parts[0].text.replace(/\n/g, '').replace(/\.$/, '').toLowerCase();
@@ -541,15 +634,15 @@
                     showToast("AI berhasil merumuskan kata kunci!", "success");
                     renderMetadataList(); 
                 } else {
-                    throw new Error("Respons gagal.");
+                    throw new Error("Respons AI kosong.");
                 }
             } catch (error) {
                 console.error(error);
-                if(error.message.includes("API Key")) {
-                    showToast(error.message, "error");
+                if(error.message.includes("API_KEY_INVALID") || error.message.includes("API key")) {
+                    showToast("API Key salah atau tidak valid.", "error");
                     switchTab('tab-checklist');
                 } else {
-                    showToast("Koneksi AI sibuk. Silakan coba lagi.", "error");
+                    showToast("Gagal: " + error.message, "error");
                 }
                 btn.innerHTML = originalHtml;
                 btn.disabled = false;
@@ -585,7 +678,7 @@
             link.href = blobUrl; link.download = "Metadata_AdobeStock.csv";
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
             URL.revokeObjectURL(blobUrl);
-            showToast("CSV Berhasil Diunduh!", "success");
+            showToast("File CSV Berhasil Diunduh!", "success");
         }
 
         function showToast(message, type = "info") {
@@ -595,13 +688,14 @@
             if (type === "success") iconClass = "fa-circle-check text-emerald-400";
             if (type === "error") iconClass = "fa-circle-exclamation text-rose-400";
 
-            toast.className = "pointer-events-auto bg-slate-800 border border-slate-700 text-white text-xs px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-2 opacity-0";
-            toast.innerHTML = `<i class="fa-solid ${iconClass} text-base"></i><span class="font-medium">${message}</span>`;
+            toast.className = "pointer-events-auto glass-panel text-white text-xs px-4.5 py-3.5 rounded-2xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-3 opacity-0 border border-white/15";
+            toast.innerHTML = `<i class="fa-solid ${iconClass} text-base"></i><span class="font-bold">${message}</span>`;
             container.appendChild(toast);
 
-            setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
-            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-2'); setTimeout(() => toast.remove(), 300); }, 3000);
+            setTimeout(() => toast.classList.remove('translate-y-3', 'opacity-0'), 10);
+            setTimeout(() => { toast.classList.add('opacity-0', 'translate-y-3'); setTimeout(() => toast.remove(), 300); }, 3000);
         }
     </script>
 </body>
 </html>
+```
